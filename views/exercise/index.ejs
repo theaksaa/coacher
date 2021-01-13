@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Coacher</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+        <script src="https://unpkg.com/ml5@0.6.0/dist/ml5.min.js" type="text/javascript"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/fontawesome.css"/>
+
+        <style>
+            body {
+                background-color: #f0f0f0;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
+            <div class="container d-flex justify-content-between">
+                <img class="mr-2" src="../images/logo_colored.svg" width="40" height="40">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
+                        <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
+                            <p class="text-left ml-2">Hello,</p>
+                            <p class="ml-1 text-left cabrion-bold"><%=name%></p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a href="../user" role="button"><i class="far fa-user fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../user/logout" role="button"><i class="far fa-sign-out-alt fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h3 class="text-left cabrion-bold"><%=exercise.name%></h3>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <p class="text-left cabrion-bold">
+                                            <% if(exercise.difficulty == 1) { %><i class="far fa-bolt"></i> Beginner
+                                            <% } else if(exercise.difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Advanced
+                                            <% } else if(exercise.difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Intermediate <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="col text-right">
+                                    <img class="square-container" src='data:image/png;base64,<%=exercise.image%>' width="100" height="100">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="text-left cabrion-bold">Exercise</h3>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md">
+                                <h3 id="exerciseCount" class="text-left cabrion-bold">Exercise count</h3>
+                            </div>
+                            <div class="col-md text-center align-items-center">
+                                <div id="canvas" class="mx-auto"></div>
+
+                                <p id="status">Loading model...</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5">
+            <p class="text-center">Coacher © 2021</p>
+        </section>
+
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+
+
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+            
+            function scrollFunction() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    document.getElementById("movetop").style.display = "block";
+                }
+                else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+            
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+
+            // When the user click on button "Let's Begin"
+            function ScrollExercise(id) {
+                document.getElementById(id).scrollIntoView(true);
+            }
+        </script>
+
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+        <!--<script>eval("<%-exercise.script%>");</script>-->
+        <script src="script.js"></script>
+        
+    </body>
+
+</html>

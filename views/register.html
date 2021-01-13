@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Coacher</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/css/fontawesome.css"/>
+
+        <style>
+            html, body {
+                background-image: linear-gradient(90deg, #766DF4, #6A9BF4);
+                height: 100%;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div id="modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalText"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-10 form-container">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div class="col-md">
+                            <div class="mb-5">
+                                <h1 class="text-left cabrion-bold">Sign up</h1>
+                                <h4 class="text-left h5 font-color-2">Lorem ipsum here</h4>
+                            </div>
+
+                            <form class="form">
+                                <div class="input-group mb-2 mr-sm-2  mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                    </div>
+                                    <input id="name" type="text" class="form-control custom-input" placeholder="Your Name">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2 mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                                    </div>
+                                    <input id="email" type="text" class="form-control custom-input" placeholder="Email">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2 mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                    </div>
+                                    <input id="password" type="password" class="form-control custom-input" placeholder="Password">
+                                </div>
+                                <div class="input-group mb-2 mr-sm-2 mt-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text"><i class="fas fa-unlock"></i></div>
+                                    </div>
+                                    <input id="confirmPassword" type="password" class="form-control custom-input" placeholder="Confirm Password">
+                                </div>
+
+                                <div class="custom-control custom-checkbox mt-4">
+                                    <input id="checkToS" type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">I agree all statements in <a href="terms">Terms of service</a></label>
+                                </div>
+                                
+
+                                <div class="buttons-container">
+                                    <button id="submit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-sign-in-alt"></i> Sign up</button> 
+                                    <a href="login" class="btn custom-btn btn-silver btn2" role="button">I already have an account</a>
+                                </div>
+                            
+                            </form>
+                        </div>
+                        <div class="col-md text-center">
+                            <img src="images/signup.png" style="width: 100%; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#submit').click(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: '/user/signup',
+                        type: 'POST',
+                        cache: false,
+                        data: { 
+                            name: document.getElementById("name").value,
+                            email: document.getElementById("email").value,
+                            password: document.getElementById("password").value,
+                            confirmPassword: document.getElementById("confirmPassword").value,
+                            checkToS: document.getElementById("checkToS").checked
+                        }, 
+                        success: function(data){
+                            if (data.redirect) window.location.href = data.redirect;
+                        },
+                        error: function(jqXHR, textStatus, err) {
+                            $("#modal").modal();
+                            $("#modalTitle").html("Error");
+                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </body>
+
+</html>

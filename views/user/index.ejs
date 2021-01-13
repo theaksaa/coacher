@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Coacher</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/fontawesome.css"/>
+
+        <style>
+            body {
+                background-color: #f0f0f0;
+            }
+        </style>
+
+    </head>
+
+    <%
+        var exercisesNum = 0;
+
+        var dates = new Map();
+        for(var i = 0; i < userExercises.length; i++) {
+            dates.set(moment(userExercises[i].date).format('L'), true);
+        }
+
+        for(var i = 1; i <= 7; i++) {
+            if(dates.has(moment().startOf('week').add(i,'days').format('L'))) exercisesNum++;
+        }
+    %>
+
+    <body>
+
+        <div id="settingsModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="settingsModalTitle">Settings</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-account-tab" data-toggle="tab" href="#nav-account" role="tab" aria-controls="nav-account" aria-selected="true">Account settings</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile settings</a>
+                            </div>
+                        </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-account" role="tabpanel" aria-labelledby="nav-account-tab">
+                                <div class="row m-2">
+                                    <div class="col-lg">
+                                        <form class="form">
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                                                </div>
+                                                <input id="name" type="text" class="form-control custom-input" placeholder="Your Name (<%=name%>)">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                                                </div>
+                                                <input id="email" type="text" class="form-control custom-input" placeholder="Email (<%=email%>)" readonly>
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                                </div>
+                                                <input id="newPassword" type="password" class="form-control custom-input" placeholder="New Password">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-unlock"></i></div>
+                                                </div>
+                                                <input id="confirmNewPassword" type="password" class="form-control custom-input" placeholder="Confirm New Password">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                                                </div>
+                                                <input id="oldPassword" type="password" class="form-control custom-input" placeholder="Old Password">
+                                            </div>
+                                            <button id="submitAccount" class="custom-btn btn-purple btn1 mt-2" role="button" type="submit"><i class="fas fa-save"></i> Save</button> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                <div class="row m-2">
+                                    <div class="col-lg">
+                                        <form class="form">
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+                                                </div>
+                                                <input id="name" type="text" class="form-control custom-input" placeholder="Week Goal (<%=weekGoal%>)">
+                                            </div>
+                                            <button id="submitProfile" class="custom-btn btn-purple btn1 mt-2" role="button" type="submit"><i class="fas fa-save"></i> Save</button> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                            <button id="submit" class="custom-btn btn-silver btn2" data-dismiss="modal" role="button" type="submit">Close</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
+            <div class="container d-flex justify-content-between">
+                <img class="mr-2" src="../images/logo_colored.svg" width="40" height="40">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
+                        <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
+                            <p class="text-left ml-2">Hello,</p>
+                            <p class="ml-1 text-left cabrion-bold"><%=name%></p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a href="" data-toggle="modal" data-target="#settingsModal" role="button"><i class="far fa-cog fa-lg"></i></a>
+                    </li>
+                    <% if(isAdmin) { %>
+                        <li class="nav-item mr-3">
+                            <a href="admin" role="button"><i class="far fa-crown fa-lg"></i></a>
+                        </li>
+                    <% } %>
+                    <li class="nav-item">
+                        <a href="user/logout" role="button"><i class="far fa-sign-out-alt fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col-10">
+                                <h3 class="text-left cabrion-bold">Your week goal</h3>
+                            </div>
+                            <div class="col-2 d-flex justify-content-end">
+                                <h5 class="text-right cabrion-bold"><%=exercisesNum%>/<a style="color: #766DF4;"><%=weekGoal%></a></h5>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <% 
+                                var dates = new Map();
+                                for(var i = 0; i < userExercises.length; i++) {
+                                    dates.set(moment(userExercises[i].date).format('L'), true);
+                                }
+
+                                for(var i = 1; i <= 7; i++) {
+                                    if(dates.has(moment().startOf('week').add(i,'days').format('L'))) { exercisesNum++; %>
+                                        <div class="col d-flex mt-3 justify-content-center">
+                                            <div class="panel-calender-circle" style="text-align: center;">
+                                                <p class="text-center cabrion-bold mt-1" style="color: #766DF4;"><%=moment().startOf('week').add(i,'days').format('DD');%></p>
+                                            </div>
+                                        </div>
+                                    <% } else { %>
+                                        <div class="col d-flex mt-3 justify-content-center">
+                                            <div class="panel-calender-circle" style="text-align: center;">
+                                                <p class="text-center cabrion-bold mt-1"><%=moment().startOf('week').add(i,'days').format('DD');%></p>
+                                            </div>
+                                        </div>
+                            <%      }
+                                }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="text-left cabrion-bold">Recent exercises</h3>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <% for(var i = 0; i < (userExercises.length < 6 ? userExercises.length : 6); i++) {
+                                if(exercises[userExercises[i].id] !== undefined && exercises[userExercises[i].id] !== null) { %>
+                                <div class="col d-flex mt-3 justify-content-center">
+                                    <button class="btn" role="button" onclick=<%='ScrollExercise(\'' + exercises[userExercises[i].id].id + '\');' %>>
+                                        <img class="square-container" src=<%='data:image/png;base64,' + exercises[userExercises[i].id].image%> width="80" height="80">
+                                    </a>
+                                </div>
+                            <% } else { %>
+                                <div class="col d-flex mt-3 justify-content-center">
+                                    <button class="btn" role="button">
+                                        <img class="square-container" src="data:image/png;base64,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" width="80" height="80">
+                                    </a>
+                                </div>
+                            <% } } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5 shadow-2 mt-5">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <h3 class="text-left cabrion-bold">Exercises</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <% for(var i in exercises) { %>
+            <section id='<%=exercises[i].id%>' class="container pt-5 shadow-2">
+                <div class="pl-5 pr-5">
+                    <div class="row">
+                        <div class="panel-container w-100 bg-gradient" >
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="text-left cabrion-bold-white"><%=exercises[i].name%></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="text-left cabrion-bold-white">
+                                        <% if(exercises[i].difficulty == 1) { %><i class="far fa-bolt"></i> Beginner
+                                        <% } else if(exercises[i].difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Advanced
+                                        <% } else if(exercises[i].difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Intermediate <% } %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col mt-3 text-left">
+                                    <img class="square-container" src='data:image/png;base64,<%=exercises[i].image%>' width="100" height="100">
+                                </div>
+                                <div class="col text-right">
+                                    <a href="exercise/?id=<%=exercises[i].id%>" role="button"><i class="fas fa-dumbbell fa-3x text-white"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <% } %>
+
+        <section class="container pt-5">
+            <p class="text-center">Coacher © 2021</p>
+        </section>
+
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+            
+            function scrollFunction() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    document.getElementById("movetop").style.display = "block";
+                }
+                else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+            
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+
+            // When the user click on button "Let's Begin"
+            function ScrollExercise(id) {
+                document.getElementById(id).scrollIntoView(true);
+            }
+
+            function StartExercise(id) {
+                document.getElementById(id).scrollIntoView(true);
+            }
+        </script>
+
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+
+</html>
