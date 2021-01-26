@@ -1,4 +1,5 @@
-let canvas = null, video = null, poseNet = null, pose = null, skeleton = null;
+let canvas = null, video = null, poseNet = null, pose = null, skeleton = null, isActive = false;
+let timeStarted = null;
 
 function setup() {
     canvas = createCanvas(320, 240);
@@ -7,12 +8,62 @@ function setup() {
     video = createCapture(VIDEO);
     video.size(320, 240);
     video.hide();
-    document.getElementById('status').innerHTML = 'Model Loading...';
+}
 
-    poseNet = ml5.poseNet(video, function() {
-        document.getElementById('status').innerHTML = 'Model Loaded';
+function start(again) {
+    document.getElementById('startExercise').innerHTML = 'Stop exercise';
+
+    if(!again) {
+        var x = document.getElementById('exercisePanel');
+        if (x.style.display === 'none') x.style.display = 'block';
+        else x.style.display = 'none';
+    
+        document.getElementById('status').innerHTML = 'Loading Exercise...';
+    
+        poseNet = ml5.poseNet(video, function() {
+            document.getElementById('status').innerHTML = 'Exercise loaded !';
+        });
+        poseNet.on('pose', gotPoses);
+    }
+    else document.getElementById('status').innerHTML = 'Exercise loaded !';
+
+    document.getElementById('exerciseCount').innerHTML = 0;
+    document.getElementById('exerciseRepetitions').innerHTML = exerciseRepetitions;
+    isActive = true;
+    ResetVariables();
+}
+
+function Finish() {
+    let timeElapsed = (Date.now() - timeStarted) / (1000 * 60);
+    document.getElementById('status').innerHTML = 'Exercise finished! Elapsed:' + (timeElapsed < 1 ? ((timeElapsed * 60).toFixed(2) + 's') : timeElapsed.toFixed(2) + 'min');
+    document.getElementById('startExercise').innerHTML = 'Start exercise';
+    isActive = false;
+
+    $.ajax({
+        url: '/exercise/finish/?id=' + exerciseID,
+        type: 'POST',
+        cache: false,
+        data: { 
+            timeStarted: timeStarted,
+            timeElapsed: timeElapsed
+        }, 
+        success: function(data){
+            if (data.redirect) window.location.href = data.redirect;
+            else {
+                $('#modal').modal();
+                $('#modalTitle').html('Error');
+                $('#modalText').html(JSON.parse(jqXHR.responseText).message);
+                console.log(jqXHR.responseText);
+            }
+        },
+        error: function(jqXHR, textStatus, err) {
+            $('#modal').modal();
+            $('#modalTitle').html('Error');
+            $('#modalText').html(JSON.parse(jqXHR.responseText).message);
+        }
     });
-    poseNet.on('pose', gotPoses);
+
+    ResetVariables();
 }
 
 function gotPoses(poses) {
@@ -25,12 +76,11 @@ function gotPoses(poses) {
     }
 }
 
-
 function draw() {
     image(video, 0, 0);
 
-    if(pose) {
-        StartExercise();
+    if(pose && isActive) {
+        Exercise();
         DrawKeyPoints();
         DrawSkeleton();
     } else {
@@ -68,21 +118,27 @@ function DrawSkeleton() {
 
 let state = false;
 let exerciseCount = 0;
+let exerciseRepetitions = 5;
 
-function StartExercise() {
+function Exercise() {
     let angle = calculateAngle(pose.rightWrist, pose.rightElbow, pose.rightShoulder).toFixed(2);
-    //document.getElementById('nose').innerHTML = 'X: ' + pose.nose.x.toFixed(2) + ' Y: ' + pose.nose.y.toFixed(2);
-    //document.getElementById('angle').innerHTML = 'Right arm ANGLE: ' + angle + '○';
 
     if(Math.abs(180 - angle) <= 20 && state == false) {
         state = true;
-        document.getElementById('status').innerHTML = 'Exercise started!';
+        document.getElementById('status').innerHTML = 'Move your arm up !';
     }
     else if(Math.abs(90 - angle) <= 20 && state == true) {
         state = false;
-        document.getElementById('status').innerHTML = 'Exercise done!';
+        document.getElementById('status').innerHTML = 'Go back!';
         document.getElementById('exerciseCount').innerHTML = ++exerciseCount;
     }
+}
+
+function ResetVariables() {
+    state = false;
+    exerciseCount = 0;
+    timeStarted = null;
+    timeFinished = null;
 }
 
 function calculateAngle(A, B, C) {
@@ -91,3 +147,16 @@ function calculateAngle(A, B, C) {
     var AC = Math.sqrt(Math.pow(C.x-A.x,2)+ Math.pow(C.y-A.y,2));
     return Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB))*(180/Math.PI);
 }
+
+$('#startExercise').click(function(event) {
+    console.log('ee');
+    event.preventDefault();
+    if(!isActive && poseNet === null) start();
+    else if(!isActive && poseNet !== null) start(true);
+    else {
+        isActive = false;
+        ResetVariables();
+        document.getElementById('status').innerHTML = 'Exercise stopped';
+        document.getElementById('startExercise').innerHTML = 'Start exercise';
+    }
+});

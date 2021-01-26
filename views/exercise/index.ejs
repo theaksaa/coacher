@@ -25,6 +25,25 @@
 
     <body>
 
+        <div id="modal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalText"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
                 <img class="mr-2" src="../images/logo_colored.svg" width="40" height="40">
@@ -62,13 +81,16 @@
                                             <% if(exercise.difficulty == 1) { %><i class="far fa-bolt"></i> Beginner
                                             <% } else if(exercise.difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Advanced
                                             <% } else if(exercise.difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Intermediate <% } %>
+                                            <br/>
+                                            <i class="far fa-stopwatch"></i> <%=exercise.timeRequired%>min &nbsp;
+                                            <i class="far fa-fire"></i> <%=exercise.kcal%>kcal
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="col text-right">
-                                    <img class="square-container" src='data:image/png;base64,<%=exercise.image%>' width="100" height="100">
+                                    <img class="square-container" src='<%=exercise.image%>' width="100" height="100">
                                 </div>
                             </div>
                         </div>
@@ -77,7 +99,23 @@
             </div>
         </section>
 
-        <section class="container pt-5 shadow-2">
+        <section class="container shadow-2 mt-5">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <button onclick="ExerciseClick()" id="startExercise" class="custom-btn btn-purple btn1" role="button" type="submit"><i class="far fa-play"></i> Start exercise</button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="exercisePanel" class="container pt-5 shadow-2" style="display: none;">
             <div class="pl-5 pr-5">
                 <div class="row">
                     <div class="panel-container w-100">
@@ -87,13 +125,18 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-md">
-                                <h3 id="exerciseCount" class="text-left cabrion-bold">Exercise count</h3>
+                            <div class="col-md my-auto">
+                                <div class="d-flex justify-content-center">
+                                    <h1 id="exerciseCount" class="text-left cabrion-bold">0</h1>
+                                    <h3 class="text-left cabrion-bold align-self-end ml-2 mr-2 pb-1">of</h3>
+                                    <h1 id="exerciseRepetitions" class="text-left cabrion-bold" style="color: #766DF4;">10</h1>
+                                </div>
+                                <p id="status" class="cabrion-bold text-center">Waiting for exercise start!</p>
+                                
                             </div>
                             <div class="col-md text-center align-items-center">
-                                <div id="canvas" class="mx-auto"></div>
+                                <div id="canvas" class="mx-auto d-flex justify-content-center"></div>
 
-                                <p id="status">Loading model...</p>
                             </div>
                             
                         </div>
@@ -106,10 +149,11 @@
             <p class="text-center">Coacher © 2021</p>
         </section>
 
+        <p style="display: none;" id="p5_loading"></p>
+
         <!-- move top -->
         <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
-
-
+        
         <script>
             // When the user scrolls down 20px from the top of the document, show the button
             window.onscroll = function () {
@@ -142,9 +186,155 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
-        <!--<script>eval("<%-exercise.script%>");</script>-->
-        <script src="script.js"></script>
+        
+        <script>
+            let exerciseID = '<%=exercise.id%>'; 
+
+            let canvas = null, video = null, poseNet = null, pose = null, skeleton = null, isActive = false;
+            let timeStarted = null;
+
+            function setup() {
+                canvas = createCanvas(320, 240);
+                canvas.parent('canvas');
+
+                video = createCapture(VIDEO);
+                video.size(320, 240);
+                video.hide();
+            }
+
+            function start(again) {
+                document.getElementById('startExercise').innerHTML = 'Stop exercise';
+
+                if(!again) {
+                    var x = document.getElementById('exercisePanel');
+                    if (x.style.display === 'none') x.style.display = 'block';
+                    else x.style.display = 'none';
+                
+                    document.getElementById('status').innerHTML = 'Loading Exercise...';
+                
+                    poseNet = ml5.poseNet(video, function() {
+                        document.getElementById('status').innerHTML = 'Exercise loaded !';
+                    });
+                    poseNet.on('pose', gotPoses);
+                }
+                else document.getElementById('status').innerHTML = 'Exercise loaded !';
+
+                document.getElementById('exerciseCount').innerHTML = 0;
+                document.getElementById('exerciseRepetitions').innerHTML = exerciseRepetitions;
+                isActive = true;
+                ResetVariables();
+                timeStarted = Date.now();
+            }
+
+            function gotPoses(poses) {
+                if(poses.length > 0) {
+                    pose = poses[0].pose;
+                    skeleton = poses[0].skeleton;
+                } else {
+                    pose = null;
+                    skeleton = null;
+                }
+            }
+
+            function Finish() {
+                let timeElapsed = (Date.now() - timeStarted) / (1000 * 60);
+                document.getElementById('status').innerHTML = 'Exercise finished! <br/> Elapsed: ' + (timeElapsed < 1 ? ((timeElapsed * 60).toFixed(2) + 's') : timeElapsed.toFixed(2) + 'min');
+                document.getElementById('startExercise').innerHTML = 'Start exercise';
+                isActive = false;
+                $.ajax({
+                    url: '/exercise/finish',
+                    type: 'POST',
+                    cache: false,
+                    data: {
+                        id: '<%-exercise.id%>',
+                        timeStarted: timeStarted,
+                        timeElapsed: timeElapsed
+                    }, 
+                    success: function(data){
+                        if (data.redirect) window.location.href = data.redirect;
+                    },
+                    error: function(jqXHR, textStatus, err) {
+                        $('#modal').modal();
+                        $('#modalTitle').html('Error');
+                        $('#modalText').html(JSON.parse(jqXHR.responseText).message);
+                    }
+                });
+
+                ResetVariables();
+            }
+
+            function draw() {
+                image(video, 0, 0);
+
+                if(pose && isActive) {
+                    if(exerciseCount >= exerciseRepetitions) Finish();
+                    else {
+                        Exercise();
+                        DrawKeyPoints();
+                        DrawSkeleton();
+                    }
+                } else {
+                    clear();
+                    image(video, 0, 0);
+                }
+            }
+
+            function DrawKeyPoints() {
+                for (let i = 0; i < pose.keypoints.length; i++) {
+                    let x = pose.keypoints[i].position.x;
+                    let y = pose.keypoints[i].position.y;
+                    if(pose.keypoints[i].score >= 0.75) fill(0, 255, 0);
+                    else fill(255, 0, 0);
+                    strokeWeight(0);
+                    ellipse(x, y, 8, 8);            
+                }
+            }
+
+            function DrawSkeleton() {
+                for (let j = 0; j < skeleton.length; j++) {
+                    let partA = skeleton[j][0];
+                    let partB = skeleton[j][1];
+                    stroke(255);
+                    strokeWeight(1);
+                    line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
+                }
+            }
+
+            /*
+                Exercise
+            */
+           
+            let state = false;
+            let exerciseCount = 0;
+            let exerciseRepetitions = parseInt('<%-exercise.repetitions%>');
+
+            var Exercise = new Function("<%-exercise.script%>");
+
+            function ResetVariables() {
+                state = false;
+                exerciseCount = 0;
+                timeStarted = null;
+                timeFinished = null;
+            }
+
+            function calculateAngle(A, B, C) {
+                var AB = Math.sqrt(Math.pow(B.x - A.x, 2) + Math.pow(B.y - A.y, 2));    
+                var BC = Math.sqrt(Math.pow(B.x - C.x, 2) + Math.pow(B.y - C.y, 2)); 
+                var AC = Math.sqrt(Math.pow(C.x - A.x, 2) + Math.pow(C.y - A.y, 2));
+                return Math.acos((BC * BC + AB * AB - AC * AC) / (2 * BC * AB)) * (180 / Math.PI);
+            }
+            
+            function ExerciseClick() {
+                if(!isActive && poseNet === null) start();
+                else if(!isActive && poseNet !== null) start(true);
+                else {
+                    isActive = false;
+                    ResetVariables();
+                    document.getElementById('status').innerHTML = 'Exercise stopped';
+                    document.getElementById('startExercise').innerHTML = 'Start exercise';
+                }
+            }
+        </script>
         
     </body>
 

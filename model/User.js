@@ -25,10 +25,21 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    exercises: {
-        type: Array,
-        default: null
-    },
+    exercises: [{
+        id: {
+            type: mongoose.Types.ObjectId,
+            required: true,
+            default: null
+        },
+        timeStarted: {
+            type: Date,
+            default: null,
+        },
+        timeElapsed: {
+            type: mongoose.Types.Decimal128,
+            default: null
+        }
+    }],
     weekGoal: {
         type: Number,
         default: 1

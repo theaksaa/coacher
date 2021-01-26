@@ -19,32 +19,77 @@
 
     </head>
 
-    <%
-        var exercisesNum = 0;
-
-        var dates = new Map();
-        for(var i = 0; i < exercises.length; i++) {
-            dates.set(moment(exercises[i].date).format('L'), true);
-        }
-
-        for(var i = 1; i <= 7; i++) {
-            if(dates.has(moment().startOf('week').add(i,'days').format('L'))) exercisesNum++;
-        }
-    %>
 
     <body>
-
-        <div id="modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
+        <div id="editModal" class="modal fade" tabindex="-1" data-dismiss="editModal">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitle"></h5>
+                        <h5 class="modal-title" id="editModalTitle">Edit exercise</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p id="modalText"></p>
+                        <div class="row">
+                            <div class="ml-5 mr-5 w-100">
+                                <div class="row">
+                                    <div class="col">
+                                        <form class="form">
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-id-card"></i></div>
+                                                </div>
+                                                <input id="editID" type="text" class="form-control custom-input" placeholder="ID">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2 mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-signature"></i></div>
+                                                </div>
+                                                <input id="editName" type="text" class="form-control custom-input" placeholder="Name">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-bolt"></i></div>
+                                                </div>
+                                                <input id="editDifficulty" type="text" class="form-control custom-input" placeholder="Difficulty">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-fire"></i></div>
+                                                </div>
+                                                <input id="editkcal" type="text" class="form-control custom-input" placeholder="kcal">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-stopwatch"></i></div>
+                                                </div>
+                                                <input id="editTimeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-image"></i></div>
+                                                </div>
+                                                <input id="editImage" type="text" class="form-control custom-input" placeholder="Image">
+                                            </div>
+                                            <div class="input-group mb-2 mr-sm-2  mt-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text"><i class="fas fa-code"></i></div>
+                                                </div>
+                                                <input id="editScript" type="text" class="form-control custom-input" placeholder="Script">
+                                            </div>
+            
+                                            <div class="buttons-container">
+                                                <button id="editExerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-edit"></i> Edit exercise</button> 
+                                                <button id="editExerciseClear" class="custom-btn btn-silver mt-3" role="button" type="submit"><i class="far fa-broom"></i> Clear</button> 
+                                                
+                                            </div>
+                                            <p id="editModalText"></p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -115,13 +160,13 @@
                                             <% for(var i in exercises) { %>
                                                 <tr>
                                                     <td>
-                                                        <img class="square-container" src='data:image/png;base64,<%=exercises[i].image%>' width="100" height="100">
+                                                        <img class="square-container" src='<%-exercises[i].image%>' width="70" height="70">
                                                     </td>
                                                     <td><%=exercises[i].name%></td>
                                                     <td><%=exercises[i].difficulty%></td>
                                                     <td><%=exercises[i].id%></td>
                                                     <td>
-                                                        <button onclick="editExercise('<%=JSON.stringify(exercises[i])%>')" class="btn" role="button" type="submit"><i class="fas fa-cog text-primary"></i></button> 
+                                                        <button onclick="editExercise(`<%=JSON.stringify(exercises[i])%>`)" class="btn" role="button" type="submit"><i class="fas fa-cog text-primary"></i></button> 
                                                         <button onclick="removeExercise('<%=exercises[i].id%>')" class="btn" role="button" type="submit"><i class="fas fa-times text-danger"></i></button> 
                                                     </td>
                                                 </tr>
@@ -161,15 +206,33 @@
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-fire"></i></div>
+                                        </div>
+                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="kcal">
+                                    </div>
+                                    <div class="input-group mb-2 mr-sm-2  mt-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-stopwatch"></i></div>
+                                        </div>
+                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)">
+                                    </div>
+                                    <div class="input-group mb-2 mr-sm-2  mt-3">
+                                        <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-image"></i></div>
                                         </div>
                                         <input id="image" type="text" class="form-control custom-input" placeholder="Image">
+                                    </div>
+                                    <div class="input-group mb-2 mr-sm-2  mt-3">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-code"></i></div>
+                                        </div>
+                                        <input id="script" type="text" class="form-control custom-input" placeholder="Script">
                                     </div>
     
                                     <div class="buttons-container">
                                         <button id="exerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-plus"></i> Add exercise</button> 
                                     </div>
-                                
+                                    <p id="modalText"></p>
                                 </form>
                             </div>
                             <div class="col-md justify-content-center align-self-center text-center">
@@ -191,69 +254,6 @@
             </div>
         </section>
 
-        <section id="editExercise" class="container pt-5 shadow-2">
-            <div class="pl-5 pr-5">
-                <div class="row">
-                    <div class="panel-container w-100">
-                        <div class="row">
-                            <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Edit exercise</h3>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md">
-                                <form class="form">
-                                    <div class="input-group mb-2 mr-sm-2 mt-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-id-card"></i></div>
-                                        </div>
-                                        <input id="editID" type="text" class="form-control custom-input" placeholder="ID">
-                                    </div>
-                                    <div class="input-group mb-2 mr-sm-2 mt-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-signature"></i></div>
-                                        </div>
-                                        <input id="editName" type="text" class="form-control custom-input" placeholder="Name">
-                                    </div>
-                                    <div class="input-group mb-2 mr-sm-2  mt-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-bolt"></i></div>
-                                        </div>
-                                        <input id="editDifficulty" type="text" class="form-control custom-input" placeholder="Difficulty">
-                                    </div>
-                                    <div class="input-group mb-2 mr-sm-2  mt-3">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-image"></i></div>
-                                        </div>
-                                        <input id="editImage" type="text" class="form-control custom-input" placeholder="Image">
-                                    </div>
-    
-                                    <div class="buttons-container">
-                                        <button id="editExerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-edit"></i> Edit exercise</button> 
-                                        <button id="editExerciseClear" class="custom-btn btn-silver mt-3" role="button" type="submit"><i class="far fa-broom"></i> Clear</button> 
-                                        
-                                    </div>
-                                
-                                </form>
-                            </div>
-                            <div class="col-md justify-content-center align-self-center text-center">
-                                <ol class="pl-0" type="none">
-                                    <li>
-                                        • Name must have maximum 20 charcters •
-                                    </li>
-                                    <li>
-                                        • Difficulty can be 1, 2 or 3 •
-                                    </li>
-                                    <li>
-                                        • Image is base64 string (<a href="https://codebeautify.org/image-to-base64-converter" target="_">Converter</a>) •
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section class="container pt-5">
             <p class="text-center">Coacher © 2021</p>
@@ -314,9 +314,15 @@
                 document.getElementById("editID").value = obj._id;
                 document.getElementById("editName").value = obj.name;
                 document.getElementById("editDifficulty").value = obj.difficulty;
+                document.getElementById("editkcal").value = obj.kcal.$numberDecimal;
+                document.getElementById("editTimeRequired").value = obj.timeRequired.$numberDecimal;
                 document.getElementById("editImage").value = obj.image;
+                document.getElementById("editScript").value = obj.script;
 
-                document.getElementById('editExercise').scrollIntoView();
+                $("#modalText").html("");
+                $("#editModal").modal();
+
+                //document.getElementById('editExercise').scrollIntoView();
             }
         </script>
 
@@ -337,20 +343,19 @@
                         cache: false,
                         data: { 
                             name: document.getElementById("name").value,
-                            diff: document.getElementById("difficulty").value,
-                            image: document.getElementById("image").value
+                            _difficulty: document.getElementById("difficulty").value,
+                            _kcal: document.getElementById("kcal").value,
+                            _timeRequired: document.getElementById("timeRequired").value,
+                            image: document.getElementById("image").value,
+                            script: document.getElementById("script").value
                         }, 
                         success: function(data){
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modal").modal();
-                                $("#modalTitle").html("Error");
                                 $("#modalText").html(JSON.parse(jqXHR.responseText).message);
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modal").modal();
-                            $("#modalTitle").html("Error");
                             $("#modalText").html(JSON.parse(jqXHR.responseText).message);
                         }
                     });
@@ -366,21 +371,20 @@
                         data: { 
                             id: document.getElementById("editID").value,
                             name: document.getElementById("editName").value,
-                            diff: document.getElementById("editDifficulty").value,
-                            image: document.getElementById("editImage").value
+                            _difficulty: document.getElementById("editDifficulty").value,
+                            _kcal: document.getElementById("editkcal").value,
+                            _timeRequired: document.getElementById("editTimeRequired").value,
+                            image: document.getElementById("editImage").value,
+                            script: document.getElementById("editScript").value
                         }, 
                         success: function(data){
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modal").modal();
-                                $("#modalTitle").html("Error");
-                                $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                                $("#editModalText").html(JSON.parse(jqXHR.responseText).message);
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modal").modal();
-                            $("#modalTitle").html("Error");
-                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                            $("#editModalText").html(JSON.parse(jqXHR.responseText).message);
                         }
                     });
                 });
@@ -388,7 +392,7 @@
                 $('#editExerciseClear').click(function(event) {
                     event.preventDefault();
 
-                    document.getElementById("editID").value = document.getElementById("editName").value = document.getElementById("editDifficulty").value = document.getElementById("editImage").value = "";
+                    document.getElementById("editID").value = document.getElementById("editName").value = document.getElementById("editDifficulty").value = document.getElementById("editImage").value = document.getElementById("editScript").value = document.getElementById("editkcal").value = document.getElementById("editTimeRequired").value = "";
                 });
             });
         </script>

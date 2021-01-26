@@ -340,3 +340,115 @@
 [32mINFO [0m[13-00-2021|14:46:48.944] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
 [32mINFO [0m[13-00-2021|14:46:54.239] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
 [32mINFO [0m[13-00-2021|14:51:20.682] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|16:15:46.479] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|16:15:46.497] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|16:15:54.385] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|17:24:47.269] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|17:24:47.286] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|17:24:54.139] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|17:28:25.673] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|18:06:14.598] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|18:40:52.580] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|18:40:52.729] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|18:41:00.799] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|19:46:25.042] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|19:46:25.061] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|19:48:05.481] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|19:48:05.497] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|19:54:00.383] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|19:54:00.450] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|20:01:34.738] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|20:01:34.756] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|20:17:27.426] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|20:17:27.450] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|20:20:28.219] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[13-00-2021|21:11:47.782] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|21:11:47.959] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|21:14:51.175] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|21:14:51.493] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[13-00-2021|21:18:39.524] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[13-00-2021|21:18:39.554] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:15:11.625] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:15:11.731] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:15:20.381] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|15:21:32.050] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:21:32.094] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:25:04.994] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:25:05.010] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:30:43.564] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:30:43.582] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:32:11.112] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:32:11.137] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:32:54.679] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:32:54.697] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:36:28.583] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:36:28.611] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:36:45.450] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:36:45.475] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:37:28.960] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:37:28.989] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:39:37.900] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:39:37.918] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|15:39:53.687] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|15:39:53.709] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|16:05:41.848] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|16:05:42.082] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|16:07:19.436] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|16:07:19.473] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|16:15:39.376] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|16:15:39.400] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|16:18:04.846] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|16:18:04.863] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|17:59:39.919] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|17:59:39.936] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:02:55.520] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:02:55.537] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:03:43.540] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:03:43.591] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:04:15.008] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:04:15.026] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:05:01.563] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:05:01.585] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:09:33.161] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:09:33.176] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:11:51.823] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:11:51.843] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:16:44.870] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:16:44.892] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:16:50.681] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:17:02.246] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:17:13.821] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:17:33.821] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:36:18.594] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:36:18.618] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:37:16.589] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:37:16.606] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:39:22.065] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:39:22.095] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:40:43.478] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:40:43.494] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:41:14.561] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:41:14.580] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:41:20.062] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:41:30.473] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mPush-up [0m
+[32mINFO [0m[14-00-2021|18:54:56.639] User logged out                               [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|18:56:14.867] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|18:57:56.842] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[14-00-2021|18:57:56.864] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[14-00-2021|18:58:11.099] User logged out                               [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|18:59:55.322] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|19:05:11.833] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[14-00-2021|19:06:00.612] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mArm move [0m
+[32mINFO [0m[20-00-2021|13:38:46.298] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[20-00-2021|13:38:46.414] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[20-00-2021|13:40:14.607] User logged in                                [32muserid=[0m5fe3899bc60270160433ed85 [32mip=[0m::ffff:127.0.0.1 [0m
+[32mINFO [0m[20-00-2021|14:08:35.652] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mArm move [0m
+[32mINFO [0m[20-00-2021|14:09:46.133] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mArm move [0m
+[32mINFO [0m[20-00-2021|14:10:48.582] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mArm move [0m
+[32mINFO [0m[20-00-2021|14:11:21.854] Exercise edited                               [32mid=[0m5ffdfb11d6e70b2b5cf03572 [32mname=[0mArm move [0m
+[32mINFO [0m[20-00-2021|14:30:47.972] Exercise created                              [32mid=[0m6008308704099934fc79a14d [32mname=[0mTestttttt [0m
+[32mINFO [0m[20-00-2021|15:30:01.648] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[20-00-2021|15:30:01.669] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[20-00-2021|15:36:15.969] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m
+[32mINFO [0m[20-00-2021|15:36:15.988] MongoDB connected                             [32muri=[0m'mongodb://localhost:27017/coacher' [0m
+[32mINFO [0m[22-00-2021|23:55:12.616] Server started                                [32mhost=[0mlocalhost [32mport=[0m443 [0m

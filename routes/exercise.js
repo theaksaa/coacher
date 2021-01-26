@@ -24,4 +24,27 @@ router.get("/", auth, async (req, res) => {
     }
 });
 
+router.post("/finish", auth, async (req, res) => {
+    try {
+        const { id, timeStarted, timeElapsed } = req.body;
+
+        const user = await User.findById(req.user.id);
+        if (user) {
+            if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).json({ message: "ERROR ID "});
+
+            const exercise = await Exercise.findById(id);
+            if(exercise) {
+                user.exercises.push({ id: mongoose.Types.ObjectId(id), timeStarted: new Date(parseInt(timeStarted)), timeElapsed: parseFloat(timeElapsed).toFixed(2) });
+                await user.save();
+
+                return res.status(200).json({ message: "Saved"});
+            }
+            else return res.status(500).json({ message: "ERROR with finding exercise ID "});
+        }
+        else return res.status(500).json({ message: "ERROR with finding user! "});
+    } catch (e) {
+        return res.status(500).json({ message: "Server error " + e });
+    }
+});
+
 module.exports = router;

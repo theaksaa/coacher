@@ -30,18 +30,21 @@ router.get("/", adminauth, async (req, res) => {
 
 router.post("/exercise/add", adminauth, async (req, res) => {
 
-    const { name, diff, image } = req.body;
-    var difficulty = parseInt(diff, 10);
+    const { name, _difficulty, image, script, _kcal, _timeRequired } = req.body;
+    var difficulty = parseInt(_difficulty, 10);
+    var kcal = parseInt(_kcal, 10);
+    var timeRequired = parseFloat(_timeRequired).toFixed(2);
 
     try {
         if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
         if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
         if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
 
+        if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0" });
+        if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0" });
+
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
-
-            let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime() });
-
+            let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired });
             await exercise.save();
 
             //res.status(200).json({ redirect: '/admin' });
@@ -57,8 +60,10 @@ router.post("/exercise/add", adminauth, async (req, res) => {
 
 router.post("/exercise/edit", adminauth, async (req, res) => {
 
-    const { id, name, diff, image } = req.body;
-    var difficulty = parseInt(diff, 10);
+    const { id, name, _difficulty, image, script, _kcal, _timeRequired } = req.body;
+    var difficulty = parseInt(_difficulty, 10);
+    var kcal = parseInt(_kcal, 10);
+    var timeRequired = parseFloat(_timeRequired).toFixed(2);
 
     try { 
         if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: "Not Valid ID!" });
@@ -80,25 +85,37 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         if(image !== null && image !== undefined && image !== "") {
             exercise.image = image;
         }
+
+        if(script !== null && script !== undefined && script !== "") {
+            exercise.script = script;
+        }
+
+        if(kcal !== null && kcal !== undefined && !Number.isNaN(kcal)) {
+            if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0" });
+            exercise.kcal = kcal;
+        }
+
+        if(timeRequired !== null && timeRequired !== undefined && !Number.isNaN(timeRequired)) {
+            if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0" });
+            exercise.timeRequired = timeRequired;
+        }
         
         await exercise.save();
         logger.log("INFO", "\x1b[32m", "Exercise edited", "id", exercise.id, "name", name);
         return res.status(500).json({ message: "Exercise edited" });
     } catch (err) {
-        return res.status(500).json({ message: "Server error, try again later..." });
+        return res.status(500).json({ message: "Server error, try again later... " + err });
     }
 });
 
 router.post("/exercise/remove", adminauth, async (req, res) => {
 
     try {
-        const exercise = await Exercise.findById(req.body.id);
-        if (exercise) {
-            await Exercise.deleteOne(exercise);
+        await Exercise.findOneAndDelete(req.body.id, function (err) {
+            if(err) return res.status(500).json({ message: err });
             return res.status(200).json({ redirect: '/admin' });
-        }
-        return res.status(500).json({ message: "Exercise not exist" });
-
+        });
+        
     } catch (err) {
         return res.status(500).json({ message: "Server error, try again later..." });
     }
