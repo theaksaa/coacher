@@ -126,11 +126,13 @@ function Exercise() {
     if(Math.abs(180 - angle) <= 20 && state == false) {
         state = true;
         document.getElementById('status').innerHTML = 'Move your arm up !';
+        document.getElementById('image').src = 'https://thumbs.dreamstime.com/z/arm-bent-elbow-one-asian-girl-against-gray-background-95883611.jpg';
     }
     else if(Math.abs(90 - angle) <= 20 && state == true) {
         state = false;
         document.getElementById('status').innerHTML = 'Go back!';
         document.getElementById('exerciseCount').innerHTML = ++exerciseCount;
+        document.getElementById('image').src = 'https://www.verywellfit.com/thmb/87YJStM6kZzJFjs_XVXgNcC_If0=/1333x1000/smart/filters:no_upscale()/extension-56b12c503df78cdfa0005375.jpg';
     }
 }
 
@@ -149,7 +151,6 @@ function calculateAngle(A, B, C) {
 }
 
 $('#startExercise').click(function(event) {
-    console.log('ee');
     event.preventDefault();
     if(!isActive && poseNet === null) start();
     else if(!isActive && poseNet !== null) start(true);

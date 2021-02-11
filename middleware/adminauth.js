@@ -11,7 +11,7 @@ module.exports = async function(req, res, next) {
     try {
         const decoded = jwt.verify(token, tokenSecret);
         var user = await User.findById(decoded.user.id);
-        var lactivity = Date.parse(user.lastchangeactivity);
+        var lactivity = Date.parse(user.lastChangeActivity);
         var tokenCreationDate = decoded.creationDate;
         if(tokenCreationDate < lactivity || tokenCreationDate === undefined || lactivity === undefined || tokenCreationDate === null || lactivity === null) {
             res.cookie('auth', null);

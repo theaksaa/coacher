@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher- Admin Panel</title>
+        <title>Coacher - Edit exercise</title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
@@ -53,6 +53,9 @@
                     <li class="nav-item mr-3">
                         <a href="/user" role="button"><i class="far fa-user fa-lg"></i></a>
                     </li>
+                    <li class="nav-item mr-3">
+                        <a href="/admin" role="button"><i class="far fa-crown fa-lg"></i></a>
+                    </li>
                     <li class="nav-item">
                         <a href="/user/logout" role="button"><i class="far fa-sign-out-alt fa-lg"></i></a>
                     </li>
@@ -66,12 +69,12 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Admin panel</h3>
+                                <h3 class="text-left cabrion-bold">Edit exercise</h3>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <p class="text-left">Welcome to admin panel!</p>
+                                <p class="text-left">Welcome to edit exercise panel!</p>
                             </div>
                         </div>
                     </div>
@@ -85,50 +88,7 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Exercises</h3>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tr>
-                                            <td>Image</td>
-                                            <td>Name</td>
-                                            <td>Difficulty</td>
-                                            <td>ID</td>
-                                            <td>Actions</td>
-                                        </tr>
-                                            <% for(var i in exercises) { %>
-                                                <tr>
-                                                    <td>
-                                                        <img class="square-container" src='<%-exercises[i].image%>' width="70" height="70">
-                                                    </td>
-                                                    <td><%=exercises[i].name%></td>
-                                                    <td><%=exercises[i].difficulty%></td>
-                                                    <td><%=exercises[i].id%></td>
-                                                    <td>
-                                                        <a href="admin/edit/?id=<%=exercises[i].id%>" role="button"><i class="fas fa-dumbbell text-primary"></i></a> 
-                                                        <button onclick="removeExercise('<%=exercises[i].id%>')" class="btn" role="button" type="submit"><i class="fas fa-times text-danger"></i></button> 
-                                                    </td>
-                                                </tr>
-                                            <% } %>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="container pt-5 shadow-2">
-            <div class="pl-5 pr-5">
-                <div class="row">
-                    <div class="panel-container w-100">
-                        <div class="row">
-                            <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Add exercise</h3>
+                                <h3 class="text-left cabrion-bold">Exercise data</h3>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -136,59 +96,54 @@
                                 <form class="form">
                                     <div class="input-group mb-2 mr-sm-2 mt-3">
                                         <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fas fa-id-card"></i></div>
+                                        </div>
+                                        <input id="editID" type="text" class="form-control custom-input" placeholder="ID" value="<%=exercise.id%>" readonly>
+                                    </div>
+                                    <div class="input-group mb-2 mr-sm-2 mt-3">
+                                        <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-signature"></i></div>
                                         </div>
-                                        <input id="name" type="text" class="form-control custom-input" placeholder="Name">
+                                        <input id="name" type="text" class="form-control custom-input" placeholder="Name" value="<%=exercise.name%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-bolt"></i></div>
                                         </div>
-                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="Difficulty">
+                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="Difficulty" value="<%=exercise.difficulty%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-fire"></i></div>
                                         </div>
-                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="kcal">
+                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="kcal" value="<%=exercise.kcal%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-stopwatch"></i></div>
                                         </div>
-                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)">
+                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)" value="<%=exercise.timeRequired%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-image"></i></div>
                                         </div>
-                                        <input id="image" type="text" class="form-control custom-input" placeholder="Image">
+                                        <input id="image" type="text" class="form-control custom-input" placeholder="Image" value="<%=exercise.image%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-code"></i></div>
                                         </div>
-                                        <input id="script" type="text" class="form-control custom-input" placeholder="Script">
+                                        <input id="script" type="text" class="form-control custom-input" placeholder="Script" value="<%=exercise.script%>">
                                     </div>
     
                                     <div class="buttons-container">
-                                        <button id="exerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-plus"></i> Add exercise</button> 
+                                        <button id="editExerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="fas fa-save"></i> Edit exercise</button> 
                                     </div>
-                                    <p id="modalText"></p>
                                 </form>
                             </div>
                             <div class="col-md justify-content-center align-self-center text-center">
-                                <ol class="pl-0" type="none">
-                                    <li>
-                                        • Name must have maximum 20 charcters •
-                                    </li>
-                                    <li>
-                                        • Difficulty can be 1, 2 or 3 •
-                                    </li>
-                                    <li>
-                                        • Image is base64 string (<a href="https://codebeautify.org/image-to-base64-converter" target="_">Converter</a>) •
-                                    </li>
-                                </ol>
+                                <img class="square-container" src='<%-exercise.image%>' width="200" height="200">
                             </div>
                         </div>
                     </div>
@@ -211,41 +166,16 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     
         <script type="text/javascript">
-            function removeExercise(id) {
-                $.ajax({
-                    url: '/admin/exercise/remove',
-                    type: 'POST',
-                    cache: false,
-                    data: {
-                        id: id
-                    }, 
-                    success: function(data) {
-                        if (data.redirect) window.location.href = data.redirect;
-                        else {
-                            $("#modalTitle").html("Saved");
-                            $("#modalText").html(data.message);
-                            $("#modal").modal();
-                        }
-                    },
-                    error: function(jqXHR, textStatus, err) {
-                        $("#modalTitle").html("Error");
-                        $("#modalText").html(JSON.parse(jqXHR.responseText).message);
-                        $("#modal").modal();
-                    }
-                });
-            }
-        </script>
-
-        <script type="text/javascript">
             $(document).ready(function() {
-                $('#exerciseSubmit').click(function(event) {
+                $('#editExerciseSubmit').click(function(event) {
                     event.preventDefault();
 
                     $.ajax({
-                        url: '/admin/exercise/add',
+                        url: '/admin/exercise/edit',
                         type: 'POST',
                         cache: false,
                         data: { 
+                            id: document.getElementById("editID").value,
                             name: document.getElementById("name").value,
                             _difficulty: document.getElementById("difficulty").value,
                             _kcal: document.getElementById("kcal").value,
@@ -254,6 +184,7 @@
                             script: document.getElementById("script").value
                         }, 
                         success: function(data) {
+                            console.log(data.message);
                             if (data.redirect) window.location.href = data.redirect;
                             else {
                                 $("#modalTitle").html("Saved");

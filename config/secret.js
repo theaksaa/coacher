@@ -12,12 +12,12 @@ async function randomToken(length) {
 }
 
 const GenerateToken = async () => {
-    /*var tokenSecret = await randomToken(32);
+    var tokenSecret = await randomToken(32);
 
     fs.writeFile('secret', tokenSecret, function (err) {
         if (err) return logger.log("ERROR", "\x1b[31m", "error", err);
         logger.log("INFO", "\x1b[32m", "Token secret created", 'token', tokenSecret);
-    });*/
+    });
 };
 
 module.exports = GenerateToken;

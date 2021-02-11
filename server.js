@@ -210,6 +210,10 @@ app.get("/images/m1.svg", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/images/m1.svg'));
 });
 
+app.get("/images/robot.svg", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/images/robot.svg'));
+});
+
 app.get("/images/m2.svg", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/images/m2.svg'));
 });
@@ -234,7 +238,26 @@ app.get("/images/uros.jpg", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/images/uros.jpg'));
 });
 
+app.get("/images/completed.svg", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/images/completed.svg'));
+});
 
-app.get("/exercise/script.js", (req, res) => {
-    res.sendFile(path.join(__dirname + '/views/exercise/script.js'));
+/*
+
+    get scripts
+
+*/
+
+app.get("/js/scroll.js", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/js/scroll.js'));
+});
+
+/*
+
+    404
+    
+*/
+
+app.get('*', function(req, res){
+    res.status(404).render(path.join(__dirname + '/views/error/error.ejs'), { errCode: 404, errMessage: "Page not found" });
 });

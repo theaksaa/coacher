@@ -12,38 +12,38 @@ router.get("/", auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
         if (user) {
-            if(!mongoose.Types.ObjectId.isValid(req.query.id)) return res.status(500).json({ message: "ERROR ID "});
+            if(!mongoose.Types.ObjectId.isValid(req.query.id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
 
             const exercise = await Exercise.findById(req.query.id);
             if(exercise) res.render(path.join(__dirname + '/../views/exercise/index.ejs'), { name: user.name, exercise: exercise, moment: moment });
-            else return res.status(500).json({ message: "ERROR with finding exercise ID "});
+            else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Exercise not found" });
         }
-        else return res.status(500).json({ message: "ERROR with finding user! "});
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
-        return res.status(500).json({ message: "Server error " + e });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
 router.post("/finish", auth, async (req, res) => {
     try {
         const { id, timeStarted, timeElapsed } = req.body;
-
         const user = await User.findById(req.user.id);
+
         if (user) {
-            if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).json({ message: "ERROR ID "});
+            if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
 
             const exercise = await Exercise.findById(id);
             if(exercise) {
                 user.exercises.push({ id: mongoose.Types.ObjectId(id), timeStarted: new Date(parseInt(timeStarted)), timeElapsed: parseFloat(timeElapsed).toFixed(2) });
                 await user.save();
 
-                return res.status(200).json({ message: "Saved"});
+                return res.status(200).json({ message: "Saved" });
             }
-            else return res.status(500).json({ message: "ERROR with finding exercise ID "});
+            else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Exercise not found" });
         }
-        else return res.status(500).json({ message: "ERROR with finding user! "});
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
-        return res.status(500).json({ message: "Server error " + e });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 

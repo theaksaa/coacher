@@ -13,8 +13,6 @@ const fs = require('fs');
 
 var tokenSecret = fs.readFileSync('secret', 'utf-8', 'r');
 
-//const socket = require('../controllers/socket');
-
 router.post("/signup", async (req, res) => {
 
     const { name, email, password, confirmPassword, checkToS } = req.body;
@@ -57,13 +55,12 @@ router.post("/signup", async (req, res) => {
         });
 
         logger.log("INFO", "\x1b[32m", "User registered", "userid", user.id, "ip", req.ip);
-    } catch (err) {
-        return res.status(500).json({ message: "Server error, try again later..." });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
 router.post("/changepass", auth, async (req, res) => {
-
     const { password, cpassword, oldpassword } = req.body;
     const user = await User.findById(req.user.id);
     if(user) {
@@ -79,7 +76,7 @@ router.post("/changepass", auth, async (req, res) => {
     
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
-            user.lastchangeactivity = new Date().getTime();
+            user.lastChangeActivity = new Date().getTime();
     
             await user.save();
     
@@ -93,16 +90,57 @@ router.post("/changepass", auth, async (req, res) => {
             jwt.sign(payload, tokenSecret, { expiresIn: 10800 }, (err, token) => {
                 if (err) throw err;
                 res.cookie('auth', token);
-                return res.status(500).json({ message: "Password changed!" });
+                return res.status(200).json({ message: "Password changed!" });
             });
             logger.log("INFO", "\x1b[32m", "User changed password", "userid", user.id, "ip", req.ip);
-        } catch (err) {
-            console.log(err);
-            return res.status(500).json({ message: "Server error, try again later..." });
+        } catch (e) {
+            return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
         }
     }
-    else return res.status(500).json({ message: "User not found!" });
+    else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
+});
+
+router.post("/changeprofile", auth, async (req, res) => {
+    const { name, weekGoal } = req.body;
+    const weekGoalInt = parseInt(weekGoal, 10);
+    const user = await User.findById(req.user.id);
+    if(user) {
+        try {
+
+            if(name !== "") {
+                if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
+                if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
+                if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
+            }
     
+            if(weekGoal !== "") {
+                if(weekGoalInt < 1 || weekGoalInt > 7) return res.status(400).json({ message: "Week goal can be from 1 to 7!" });
+            }
+    
+            user.name = name !== "" ? name : user.name;
+            user.weekGoal = weekGoal !== "" ? weekGoalInt : user.weekGoal;
+            user.lastChangeActivity = new Date().getTime();
+    
+            await user.save();
+    
+            const payload = {
+                user: {
+                    id: user.id
+                },
+                creationDate: new Date().getTime()
+            };
+    
+            jwt.sign(payload, tokenSecret, { expiresIn: 10800 }, (err, token) => {
+                if (err) throw err;
+                res.cookie('auth', token);
+                return res.status(200).json({ message: "Profile settings changed!" });
+            });
+            logger.log("INFO", "\x1b[32m", "User changed profile settings", "userid", user.id, "ip", req.ip);
+        } catch (e) {
+            return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
+        }
+    }
+    else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
 });
 
 router.post( "/login", async (req, res) => {
@@ -132,7 +170,7 @@ router.post( "/login", async (req, res) => {
         logger.log("INFO", "\x1b[32m", "User logged in", "userid", user.id, "ip", req.ip);
 
     } catch (e) {
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
@@ -147,21 +185,31 @@ router.get("/", auth, async (req, res) => {
         }, {});
 
         if (user) res.render(path.join(__dirname + '/../views/user/index.ejs'), { name: user.name, email: user.email, image: user.image, isAdmin: user.admin, exercises: exercises, userExercises: user.exercises, weekGoal: user.weekGoal, moment: moment });
-        else console.log("error with finding user");
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
-        return res.status(500).json({ message: "Server error " + e });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
+    }
+});
+
+router.get("/settings", auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (user) res.render(path.join(__dirname + '/../views/user/settings.ejs'), { name: user.name, email: user.email, image: user.image, isAdmin: user.admin, weekGoal: user.weekGoal, moment: moment });
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
 router.get("/logout", auth, async (req, res) => {
     try {
         res.cookie('auth', null);
-        //res.redirect('/');
-        res.status(200).json({ redirect: '/' });
+        res.redirect('/');
+        //res.status(200).json({ redirect: '/' });
         logger.log("INFO", "\x1b[32m", "User logged out", "userid", req.user.id, "ip", req.ip);
-
     } catch (e) {
-        return res.status(500).json({ message: "Server error" });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 

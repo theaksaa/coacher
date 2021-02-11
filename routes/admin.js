@@ -8,7 +8,6 @@ const moment = require('moment');
 const logger = require('../logger/logger');
 const mongoose = require('mongoose');
 
-
 router.get("/", adminauth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id);
@@ -21,12 +20,27 @@ router.get("/", adminauth, async (req, res) => {
         }, {});
 
         if (user) res.render(path.join(__dirname + '/../views/admin/index.ejs'), { name: user.name, exercises: exercises, moment: moment });
-        else console.log("error with finding user");
+        else res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
-        return res.status(500).json({ message: "Server error " + e });
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
+router.get("/edit", adminauth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        if (user) {
+            if(!mongoose.Types.ObjectId.isValid(req.query.id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
+    
+            const exercise = await Exercise.findById(req.query.id);
+            if(exercise) res.render(path.join(__dirname + '/../views/admin/edit.ejs'), { name: user.name, exercise: exercise, moment: moment });
+            else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Exercise not found" });
+        }
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
+    }
+});
 
 router.post("/exercise/add", adminauth, async (req, res) => {
 
@@ -49,12 +63,12 @@ router.post("/exercise/add", adminauth, async (req, res) => {
 
             //res.status(200).json({ redirect: '/admin' });
             logger.log("INFO", "\x1b[32m", "Exercise created", "id", exercise.id, "name", name);
-            return res.status(500).json({ message: "Exercise created" });
+            return res.status(200).json({ message: "Exercise created" });
 
         } else return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!" });
 
-    } catch (err) {
-        return res.status(500).json({ message: "Server error, try again later..." });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
@@ -66,7 +80,7 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
     var timeRequired = parseFloat(_timeRequired).toFixed(2);
 
     try { 
-        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: "Not Valid ID!" });
+        if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
         const exercise = await Exercise.findById(id);
         if(!exercise) return res.status(400).json({ message: "Exercise not exist" });
 
@@ -102,22 +116,20 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         
         await exercise.save();
         logger.log("INFO", "\x1b[32m", "Exercise edited", "id", exercise.id, "name", name);
-        return res.status(500).json({ message: "Exercise edited" });
-    } catch (err) {
-        return res.status(500).json({ message: "Server error, try again later... " + err });
+        return res.status(200).json({ message: "Exercise edited" });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
 router.post("/exercise/remove", adminauth, async (req, res) => {
-
     try {
-        await Exercise.findOneAndDelete(req.body.id, function (err) {
+        await Exercise.findByIdAndRemove(req.body.id, function (err) {
             if(err) return res.status(500).json({ message: err });
             return res.status(200).json({ redirect: '/admin' });
         });
-        
-    } catch (err) {
-        return res.status(500).json({ message: "Server error, try again later..." });
+    } catch (e) {
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
 
