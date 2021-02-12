@@ -56,6 +56,7 @@ router.post("/signup", async (req, res) => {
 
         logger.log("INFO", "\x1b[32m", "User registered", "userid", user.id, "ip", req.ip);
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -94,6 +95,7 @@ router.post("/changepass", auth, async (req, res) => {
             });
             logger.log("INFO", "\x1b[32m", "User changed password", "userid", user.id, "ip", req.ip);
         } catch (e) {
+            logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
             return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
         }
     }
@@ -137,6 +139,7 @@ router.post("/changeprofile", auth, async (req, res) => {
             });
             logger.log("INFO", "\x1b[32m", "User changed profile settings", "userid", user.id, "ip", req.ip);
         } catch (e) {
+            logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
             return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
         }
     }
@@ -170,6 +173,7 @@ router.post( "/login", async (req, res) => {
         logger.log("INFO", "\x1b[32m", "User logged in", "userid", user.id, "ip", req.ip);
 
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -187,6 +191,7 @@ router.get("/", auth, async (req, res) => {
         if (user) res.render(path.join(__dirname + '/../views/user/index.ejs'), { name: user.name, email: user.email, image: user.image, isAdmin: user.admin, exercises: exercises, userExercises: user.exercises, weekGoal: user.weekGoal, moment: moment });
         else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -198,6 +203,7 @@ router.get("/settings", auth, async (req, res) => {
         if (user) res.render(path.join(__dirname + '/../views/user/settings.ejs'), { name: user.name, email: user.email, image: user.image, isAdmin: user.admin, weekGoal: user.weekGoal, moment: moment });
         else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -209,6 +215,7 @@ router.get("/logout", auth, async (req, res) => {
         //res.status(200).json({ redirect: '/' });
         logger.log("INFO", "\x1b[32m", "User logged out", "userid", req.user.id, "ip", req.ip);
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });

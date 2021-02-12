@@ -22,6 +22,7 @@ router.get("/", adminauth, async (req, res) => {
         if (user) res.render(path.join(__dirname + '/../views/admin/index.ejs'), { name: user.name, exercises: exercises, moment: moment });
         else res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -38,6 +39,7 @@ router.get("/edit", adminauth, async (req, res) => {
         }
         else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -68,6 +70,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
         } else return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!" });
 
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -118,6 +121,7 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         logger.log("INFO", "\x1b[32m", "Exercise edited", "id", exercise.id, "name", name);
         return res.status(200).json({ message: "Exercise edited" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -125,10 +129,11 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
 router.post("/exercise/remove", adminauth, async (req, res) => {
     try {
         await Exercise.findByIdAndRemove(req.body.id, function (err) {
-            if(err) return res.status(500).json({ message: err });
+            if(err) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + err });
             return res.status(200).json({ redirect: '/admin' });
         });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });

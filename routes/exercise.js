@@ -20,6 +20,7 @@ router.get("/", auth, async (req, res) => {
         }
         else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
@@ -43,6 +44,7 @@ router.post("/finish", auth, async (req, res) => {
         }
         else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
     } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
     }
 });
