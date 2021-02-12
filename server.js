@@ -87,6 +87,10 @@ app.get("/css/fontawesome.css", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/css/fontawesome.css'));
 });
 
+app.get("/css/toast.min.css", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/css/toast.min.css'));
+});
+
 /*
     get fonts
 */
@@ -257,6 +261,10 @@ app.get("/images/completed.svg", (req, res) => {
 
 app.get("/js/scroll.js", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/js/scroll.js'));
+});
+
+app.get("/js/toast.min.js", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/js/toast.min.js'));
 });
 
 /*

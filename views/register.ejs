@@ -11,6 +11,7 @@
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
+        <link rel="stylesheet" href="/css/toast.min.css"/>
 
         <style>
             html, body {
@@ -22,25 +23,6 @@
     </head>
 
     <body>
-        <div id="modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="modalText"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-10 form-container">
@@ -77,7 +59,7 @@
                                     <input id="confirmPassword" type="password" class="form-control custom-input" placeholder="<%=langText.cpassword%>">
                                 </div>
                                 <div class="custom-control custom-checkbox mt-4">
-                                    <input id="checkToS" type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <input id="checkToS" type="checkbox" class="custom-control-input" id="customCheck1" style="z-index: 50;">
                                     <label class="custom-control-label" for="customCheck1"><%=langText.iagree%> <a href="terms"><%=langText.terms%></a></label>
                                 </div>
                                 <div class="buttons-container">
@@ -99,7 +81,8 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-   
+        <script src="/js/toast.min.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#submit').click(function(event) {
@@ -120,41 +103,83 @@
                             if (data.redirect) window.location.href = data.redirect;
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modal").modal();
-                            $("#modalTitle").html("<%=langText.error%>");
                             switch(jqXHR.status) {
                                 case 401:
-                                    $("#modalText").html("<%=langText.user401%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user401%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 402:
-                                    $("#modalText").html("<%=langText.user402%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user402%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 403:
-                                    $("#modalText").html("<%=langText.user403%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user403%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 404:
-                                    $("#modalText").html("<%=langText.user404%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user404%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 405:
-                                    $("#modalText").html("<%=langText.user405%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user405%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 406:
-                                    $("#modalText").html("<%=langText.user406%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user406%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 407:
-                                    $("#modalText").html("<%=langText.user407%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user407%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 408:
-                                    $("#modalText").html("<%=langText.user408%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user408%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 409:
-                                    $("#modalText").html("<%=langText.user409%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user409%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 410:
-                                    $("#modalText").html("<%=langText.user410%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user410%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 default:
-                                    $("#modalText").html("<%=langText.error%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.error%>",
+                                        delay: 5000,
+                                    });
                             }
                         }
                     });

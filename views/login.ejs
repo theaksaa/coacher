@@ -11,6 +11,7 @@
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
+        <link rel="stylesheet" href="/css/toast.min.css"/>
 
         <style>
             html, body {
@@ -22,25 +23,6 @@
     </head>
 
     <body>
-        <div id="modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="modalText"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-10 form-container">
@@ -84,7 +66,8 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+        <script src="/js/toast.min.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#submit').click(function(event) {
@@ -102,17 +85,27 @@
                             if (data.redirect) window.location.href = data.redirect;
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modal").modal();
-                            $("#modalTitle").html("<%=langText.error%>");
                             switch(jqXHR.status) {
                                 case 412:
-                                    $("#modalText").html("<%=langText.user412%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user412%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 413:
-                                    $("#modalText").html("<%=langText.user413%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user413%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 default:
-                                    $("#modalText").html("<%=langText.error%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.error%>",
+                                        delay: 5000,
+                                    });
                             }
                         }
                     });

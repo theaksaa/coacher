@@ -11,6 +11,7 @@
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
+        <link rel="stylesheet" href="/css/toast.min.css"/>
 
         <style>
             body {
@@ -21,25 +22,6 @@
     </head>
 
     <body>
-        <div id="modal" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="modalText"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
                 <a href="/"><img class="mr-2" src="/images/logo_colored.svg" width="40" height="40"></a>
@@ -174,7 +156,8 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    
+        <script src="/js/toast.min.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#submitPassword').click(function(event) {
@@ -192,30 +175,50 @@
                         success: function(data) {
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modalTitle").html("<%=langText.successfully%>");
-                                $("#modalText").html(data.message);
-                                $("#modal").modal();
+                                $.toast({
+                                    type: "success",
+                                    title: "<%=langText.successfully%>",
+                                    delay: 5000,
+                                });
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modalTitle").html("<%=langText.error%>");
                             switch(jqXHR.status) {
                                 case 405:
-                                    $("#modalText").html("<%=langText.user405%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user405%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 406:
-                                    $("#modalText").html("<%=langText.user406%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user406%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 407:
-                                    $("#modalText").html("<%=langText.user407%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user407%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 408:
-                                    $("#modalText").html("<%=langText.user408%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user408%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 default:
-                                    $("#modalText").html("<%=langText.error%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.error%>",
+                                        delay: 5000,
+                                    });
                             }
-                            $("#modal").modal();
                         }
                     });
                 });
@@ -232,34 +235,52 @@
                             weekGoal: document.getElementById("weekGoal").value
                         }, 
                         success: function(data) {
-                            console.log(data.message);
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modalTitle").html("<%=langText.successfully%>");
-                                $("#modalText").html(data.message);
-                                $("#modal").modal();
+                                $.toast({
+                                    type: "success",
+                                    title: "<%=langText.successfully%>",
+                                    delay: 5000,
+                                });
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modalTitle").html("<%=langText.error%>");
-
                             switch(jqXHR.status) {
                                 case 401:
-                                    $("#modalText").html("<%=langText.user401%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user401%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 402:
-                                    $("#modalText").html("<%=langText.user402%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user402%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 403:
-                                    $("#modalText").html("<%=langText.user403%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user403%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 case 411:
-                                    $("#modalText").html("<%=langText.user411%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.user411%>",
+                                        delay: 5000,
+                                    });
                                     break;
                                 default:
-                                    $("#modalText").html("<%=langText.error%>");
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.error%>",
+                                        delay: 5000,
+                                    });
                             }
-                            $("#modal").modal();
                         }
                     });
                 });
