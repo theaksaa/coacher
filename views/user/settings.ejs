@@ -9,7 +9,7 @@
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
-        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="icon" type="image/ico" href="/images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
         <link rel="stylesheet" href="/css/toast.min.css"/>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <form class="form">
+                                <form class="form" autocomplete="off">
                                     <div class="input-group mb-2 mr-sm-2 mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-envelope m-auto"></i></div>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <form class="form">
+                                <form class="form" autocomplete="off">
                                     <div class="input-group mb-2 mr-sm-2 mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-user m-auto"></i></div>
@@ -201,14 +201,12 @@
                             oldpassword: document.getElementById("oldPassword").value
                         }, 
                         success: function(data) {
-                            if (data.redirect) window.location.href = data.redirect;
-                            else {
-                                $.toast({
-                                    type: "success",
-                                    title: "<%=langText.successfully%>",
-                                    delay: 5000,
-                                });
-                            }
+                            $.toast({
+                                type: "success",
+                                title: "<%=langText.successfully%>",
+                                delay: 5000,
+                            });
+                            if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                         },
                         error: function(jqXHR, textStatus, err) {
                             switch(jqXHR.status) {
@@ -263,14 +261,12 @@
                             weekGoal: document.getElementById("weekGoal").value
                         }, 
                         success: function(data) {
-                            if (data.redirect) window.location.href = data.redirect;
-                            else {
-                                $.toast({
-                                    type: "success",
-                                    title: "<%=langText.successfully%>",
-                                    delay: 5000,
-                                });
-                            }
+                            $.toast({
+                                type: "success",
+                                title: "<%=langText.successfully%>",
+                                delay: 5000,
+                            });
+                            if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                         },
                         error: function(jqXHR, textStatus, err) {
                             switch(jqXHR.status) {

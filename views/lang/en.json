@@ -1,0 +1,153 @@
+{
+    "locale": "en",
+
+    "projectName": "Coacher",
+    "copyright": "Coacher © 2021",
+
+    "founder": "Uroš Aksentijević",
+    "founder_tags": "CEO / Founder / Developer",
+    "founder_desc": "Fullstack developer, Coacher founder",
+
+
+    "button_close": "Close",
+    "email": "Email",
+    "password": "Password",
+    "cpassword": "Confirm Password",
+    "npassword": "New Password",
+    "cnpassword": "Confirm New Password",
+    "opassword": "Old Password",
+    "yourname": "Your Name",
+    "error": "Server error",
+    "successfully": "Saved",
+    "hello": "Hello",
+    "gotop": "Go to top",
+
+
+
+    "button_start": "Start training!",
+    "welcome1": "Your virtual",
+    "coach": "coach",
+    "welcome2": "Everything you need to start exercising in a proper way",
+    "button_letsbegin": "Let's begin",
+
+    "sec1": "Become part of the team!",
+    "sec1_desc": "Dive in and become the best version of yourself",
+
+    "sec2": "Start exercising now!",
+
+    "sec3": "Let us do the monitoring part",
+    "sec3_desc": "Our AI will watch over you, count your reps and make sure you are doing exercises correctly. We count only reps that we find acceptable, which will stop you from cheating and improve your health. This time for real.",
+
+    "sec4": "Anywhere you go",
+    "sec4_desc": "It's like having a personal trainer you can take everywhere with yourself, any time, any place with no cost! Like exercising before going to bed, or perhaps you are one of those early birds that can't wait for their trainer, we got you.",
+
+    "sec5": "Make your own training program",
+    "sec5_desc": "Love coding? Want to make your own training program? You can make your very own AI to track custom exercises you coded yourself.",
+    "sec5_desc2": "Coming soon...",
+
+    "sec6": "Team",
+    "sec6_desc": "Or only one person?",
+    
+    
+
+    "signin": "Sign in",
+    "signin_desc": "Use your Coacher account",
+    "donthaveacc": "I don't have an account",
+
+
+
+    "signup": "Sign up",
+    "signup_desc": "Create your Coacher account",
+    "haveacc": "I already have an account",
+    "iagree": "I agree all statements in",
+    "terms": "Terms of service",
+
+
+
+    "text_weekgoal": "Your week goal",
+    "recentexercises": "Recent exercises",
+    "exercises": "Exercises",
+    "exercise": "Exercise",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+
+
+
+    "settings": "Settings",
+    "settings_desc": "Welcome to settings panel",
+    "account_settings": "Account settings", 
+    "profile_settings": "Profile settings",
+    "weekgoal": "Week Goal",
+    "save": "Save",
+    "language": "Language",
+    "language_desc": "Choose your language",
+
+
+
+    "adminpanel": "Admin Panel",
+    "adminpanel_desc": "Welcome to admin panel",
+    "image": "Image",
+    "name": "Name",
+    "difficulty": "Difficulty",
+    "ID": "ID",
+    "actions": "Actions",
+    "add_exercise": "Add exercise",
+    "kcal": "kcal",
+    "timereq": "Time Required (minutes)",
+    "script": "Script",
+    "add_exercise_desc": "• Name can have maximum 20 charcters • <br> • Difficulty can be 1, 2 or 3 • <br> • You can use URL or base64 string for image •",
+
+
+
+    "edit_exercise": "Edit exercise",
+    "edit_exercise_desc": "Welcome to edit exercise panel",
+    "exercise_data": "Exercise data",
+
+
+
+    "start_exercise": "Start exercise",
+    "stop_exercise": "Stop exercise",
+    "stopped_exercise": "Exercise stopped",
+    "loading_exercise": "Loading exercise",
+    "loaded_exercise": "Exercise loaded",
+    "finished_exercise": "Exercise finished",
+    "elapsed": "Elapsed",
+
+
+    
+    "exercise_removed": "Successfully removed exercise",
+    "exercise_added": "Successfully added exercise",
+    "exercise_edited": "Successfully edited exercise", 
+    
+
+
+    "of": "of",
+    "waiting": "Waiting",
+
+    
+
+    "user400": "Something went wrong",
+    "user401": "Name must have at least 1 character",
+    "user402": "Name can't be longer than 20 characters",
+    "user403": "Invalid name",
+    "user404": "Invalid email",
+    "user405": "Password must have at least 8 characters",
+    "user406": "Password can't be longer than 24 characters",
+    "user407": "Password must have at least 8 characters containing one: upper case, lower case, number and special character (!@#$%^&*)",
+    "user408": "Passwords are different",
+    "user409": "You must agree to the Terms of service",
+    "user410": "Entered email address is already in use",
+    "user411": "Week goal can be from 1 to 7",
+    "user412": "Couldn't find user with entered credentials",
+    "user413": "Couldn't find user with entered credentials",
+
+    "exercise400": "Something went wrong",
+    "exercise401": "Name must have at least 1 character",
+    "exercise402": "Name can't be longer than 20 characters",
+    "exercise403": "Invalid name",
+    "exercise404": "kcal can't be less than 0",
+    "exercise405": "Required time can't be less than 0",
+    "exercise406": "Difficulty can be 1, 2 or 3",
+    "exercise407": "Script is required"
+}

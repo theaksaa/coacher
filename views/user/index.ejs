@@ -8,7 +8,7 @@
         <title><%=langText.projectName%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="icon" type="image/ico" href="/images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
 
@@ -153,8 +153,8 @@
                                 <div class="col">
                                     <p class="text-left cabrion-bold-white">
                                         <% if(exercises[i].difficulty == 1) { %><i class="far fa-bolt"></i> <%=langText.beginner%>
-                                        <% } else if(exercises[i].difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.advanced%>
-                                        <% } else if(exercises[i].difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.intermediate%> <% } %>
+                                        <% } else if(exercises[i].difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.intermediate%>
+                                        <% } else if(exercises[i].difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.advanced%> <% } %>
                                         <br/>
                                         <i class="far fa-stopwatch"></i> <%=exercises[i].timeRequired%>min &nbsp;
                                         <i class="far fa-fire"></i> <%=exercises[i].kcal%>kcal

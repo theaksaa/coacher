@@ -91,7 +91,7 @@ router.post("/changepass", auth, async (req, res) => {
             jwt.sign(payload, tokenSecret, { expiresIn: 10800 }, (err, token) => {
                 if (err) throw err;
                 res.cookie('auth', token);
-                return res.status(200).json({ message: "Password changed!" });
+                return res.status(200).json({ redirect: '/user/settings' });
             });
             logger.log("INFO", "\x1b[32m", "User changed password", "userid", user.id, "ip", req.ip);
         } catch (e) {
@@ -135,7 +135,7 @@ router.post("/changeprofile", auth, async (req, res) => {
             jwt.sign(payload, tokenSecret, { expiresIn: 10800 }, (err, token) => {
                 if (err) throw err;
                 res.cookie('auth', token);
-                return res.status(200).json({ message: "<%=langText.error%>" });
+                return res.status(200).json({ redirect: '/user/settings' });
             });
             logger.log("INFO", "\x1b[32m", "User changed profile settings", "userid", user.id, "ip", req.ip);
         } catch (e) {

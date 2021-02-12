@@ -58,14 +58,14 @@ router.post("/exercise/add", adminauth, async (req, res) => {
 
         if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
         if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
+        if(script == "") return res.status(407).json({ message: "Script is required" });
 
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
             let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired });
             await exercise.save();
 
-            //res.status(200).json({ redirect: '/admin' });
             logger.log("INFO", "\x1b[32m", "Exercise created", "id", exercise.id, "name", name);
-            return res.status(200).json({ message: "Exercise created" });
+            return res.status(200).json({ redirect: '/admin' });
 
         } else return res.status(406).json({ message: "Difficulty must be 1, 2 or 3!" });
 
@@ -119,7 +119,7 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         
         await exercise.save();
         logger.log("INFO", "\x1b[32m", "Exercise edited", "id", exercise.id, "name", name);
-        return res.status(200).json({ message: "Exercise edited" });
+        return res.status(200).json({ redirect: '/admin/edit/?id=' + exercise.id });
     } catch (e) {
         logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
         return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });

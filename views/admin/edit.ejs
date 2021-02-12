@@ -8,7 +8,7 @@
         <title><%=langText.projectName%> - <%=langText.edit_exercise%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="icon" type="image/ico" href="/images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
         <link rel="stylesheet" href="/css/toast.min.css"/>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md">
-                                <form class="form">
+                                <form class="form" autocomplete="off">
                                     <div class="input-group mb-2 mr-sm-2 mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-id-card m-auto"></i></div>
@@ -86,37 +86,37 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-signature m-auto"></i></div>
                                         </div>
-                                        <input id="name" type="text" class="form-control custom-input" placeholder="Name" value="<%=exercise.name%>">
+                                        <input id="name" type="text" class="form-control custom-input" placeholder="<%=langText.name%>" value="<%=exercise.name%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-bolt m-auto"></i></div>
                                         </div>
-                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="Difficulty" value="<%=exercise.difficulty%>">
+                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="<%=langText.difficulty%>" value="<%=exercise.difficulty%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-fire m-auto"></i></div>
                                         </div>
-                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="kcal" value="<%=exercise.kcal%>">
+                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="<%=langText.kcal%>" value="<%=exercise.kcal%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-stopwatch m-auto"></i></div>
                                         </div>
-                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)" value="<%=exercise.timeRequired%>">
+                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="<%=langText.timereq%>" value="<%=exercise.timeRequired%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-image m-auto"></i></div>
                                         </div>
-                                        <input id="image" type="text" class="form-control custom-input" placeholder="Image" value="<%=exercise.image%>">
+                                        <input id="image" type="text" class="form-control custom-input" placeholder="<%=langText.image%>" value="<%=exercise.image%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-code m-auto"></i></div>
                                         </div>
-                                        <input id="script" type="text" class="form-control custom-input" placeholder="Script" value="<%=exercise.script%>">
+                                        <input id="script" type="text" class="form-control custom-input" placeholder="<%=langText.script%>" value="<%=exercise.script%>">
                                     </div>
     
                                     <div class="buttons-container">
@@ -125,8 +125,12 @@
                                 </form>
                             </div>
                             <div class="col-md justify-content-center align-self-center text-center">
-                                <img class="square-container" src='<%-exercise.image%>' width="200" height="200">
+                                <div class="align-self-center text-center">
+                                    <img class="square-container" src='<%-exercise.image%>' width="200" height="200">
+                                </div>
+                                <a onclick="removeExercise('<%=exercise.id%>')" role="button"><i class="far fa-trash text-danger fa-lg mt-4"></i></a> 
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -149,6 +153,34 @@
         <script src="/js/toast.min.js"></script>
 
         <script type="text/javascript">
+            function removeExercise(id) {
+                $.ajax({
+                    url: '/admin/exercise/remove',
+                    type: 'POST',
+                    cache: false,
+                    data: {
+                        id: id
+                    }, 
+                    success: function(data) {
+                        $.toast({
+                            type: "success",
+                            title: "<%=langText.exercise_removed%>",
+                            delay: 5000,
+                        });
+                        if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
+                    },
+                    error: function(jqXHR, textStatus, err) {
+                        $.toast({
+                            type: "error",
+                            title: "<%=langText.error%>",
+                            delay: 5000,
+                        });
+                    }
+                });
+            }
+        </script>
+
+        <script type="text/javascript">
             $(document).ready(function() {
                 $('#editExerciseSubmit').click(function(event) {
                     event.preventDefault();
@@ -167,15 +199,12 @@
                             script: document.getElementById("script").value
                         }, 
                         success: function(data) {
-                            console.log(data.message);
-                            if (data.redirect) window.location.href = data.redirect;
-                            else {
-                                $.toast({
-                                    type: "success",
-                                    title: "<%=langText.exercise_edited%>",
-                                    delay: 5000,
-                                });
-                            }
+                            $.toast({
+                                type: "success",
+                                title: "<%=langText.exercise_edited%>",
+                                delay: 5000,
+                            });
+                            if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                         },
                         error: function(jqXHR, textStatus, err) {
                             switch(jqXHR.status) {

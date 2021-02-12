@@ -1,0 +1,153 @@
+{
+    "locale": "sr",
+
+    "projectName": "Coacher",
+    "copyright": "Coacher © 2021",
+
+    "founder": "Uroš Aksentijević",
+    "founder_tags": "Direktor / Pronalazač / Programer",
+    "founder_desc": "Fullstack programer, Coacher pronalazač",
+
+
+    "button_close": "Zatvori",
+    "email": "Email",
+    "password": "Lozinka",
+    "cpassword": "Potvrdite lozinku",
+    "npassword": "Nova lozinka",
+    "cnpassword": "Potvrdite novu lozinku",
+    "opassword": "Stara lozinka",
+    "yourname": "Vaše ime",
+    "error": "Serverska greška",
+    "successfully": "Sačuvano",
+    "hello": "Zdravo",
+    "gotop": "Idi na vrh",
+
+
+
+    "button_start": "Počni trening!",
+    "welcome1": "Tvoj virtuelni",
+    "coach": "trener",
+    "welcome2": "Sve što vam je potrebno da vežbaš na pravilan način",
+    "button_letsbegin": "Počni",
+
+    "sec1": "Postani deo tima!",
+    "sec1_desc": "Pridruži nam se i postani najbolja verzija sebe",
+
+    "sec2": "Počni da vežbaš sada!",
+
+    "sec3": "Prepusti nam praćenje tvog vežbanja",
+    "sec3_desc": "Naš AI te nadgleda dok vežbaš, broji tvoja ponavljanja i brine o tome da li radiš vežbe ispravno. Mi prihvatamo samo pravilno uradjenja ponavljanja, što te sprečava da varaš i poboljšava ti zdravstveno stanje. Ovog puta stvarno.",
+
+    "sec4": "Gde god da kreneš",
+    "sec4_desc": "To je kao da imaš personalnog trenera, koji je sa tobom bilo gde, bilo kada, bez ikakvih troškova! Ako vežbaš pre spavanja, ili si možda jedan/na od ranoranilaca, mi ti možemo pomoći.",
+
+    "sec5": "Napravi sopstveni program za praćenje vežbe",
+    "sec5_desc": "Voliš da programiraš? Želiš da napraviš sopstveni program za treniranje? Možeš da napraviš sopstveni program za praćenje jedinstvene vežbe.",
+    "sec5_desc2": "Uskoro...",
+
+    "sec6": "Tim",
+    "sec6_desc": "Ili samo jedna osoba?",
+    
+    
+
+    "signin": "Prijavi se",
+    "signin_desc": "Koristi tvoj Coacher nalog",
+    "donthaveacc": "Nemam nalog",
+
+
+
+    "signup": "Registruj se",
+    "signup_desc": "Napravi svoj Coacher nalog",
+    "haveacc": "Već imam nalog",
+    "iagree": "Prihvatam",
+    "terms": "Uslove korisćenja",
+
+
+
+    "text_weekgoal": "Tvoj nedeljni cilj",
+    "recentexercises": "Nedavne vežbe",
+    "exercises": "Vežbe",
+    "exercise": "Vežba",
+    "beginner": "Početni nivo",
+    "intermediate": "Srednji nivo",
+    "advanced": "Napredni nivo",
+
+
+
+    "settings": "Podešavanja",
+    "settings_desc": "Dobrodošli u panel podešavanja",
+    "account_settings": "Podešavanja naloga", 
+    "profile_settings": "Podešavanja profila",
+    "weekgoal": "Nedeljni cilj",
+    "save": "Sačuvaj",
+    "language": "Jezik",
+    "language_desc": "Izaberi jezik",
+
+
+
+    "adminpanel": "Panel administratora",
+    "adminpanel_desc": "Dobrodošli u panel administratora",
+    "image": "Slika",
+    "name": "Ime",
+    "difficulty": "Težina",
+    "ID": "ID",
+    "actions": "Akcije",
+    "add_exercise": "Dodaj vežbu",
+    "kcal": "kcal",
+    "timereq": "Potrebno vreme (minuti)",
+    "script": "Kod",
+    "add_exercise_desc": "• Ime može imati najviše 20 karaktera • <br> • Težina može biti 1, 2 ili 3 • <br> • Za sliku možete koristiti URL ili base64 string •",
+
+
+
+    "edit_exercise": "Izmeni vežbu",
+    "edit_exercise_desc": "Dobrodošli u panel izmene vežbe",
+    "exercise_data": "Podaci o vežbi",
+
+
+
+    "start_exercise": "Pokreni vežbu",
+    "stop_exercise": "Zaustavi vežbu",
+    "stopped_exercise": "Vežba je zaustavljena",
+    "loading_exercise": "Učitavanje vežbe",
+    "loaded_exercise": "Vežba je učitana",
+    "finished_exercise": "Vežba je završena",
+    "elapsed": "Proteklo",
+
+
+    
+    "exercise_removed": "Uspešno ste obrisali vežbu",
+    "exercise_added": "Uspešno ste dodali vežbu",
+    "exercise_edited": "Uspešno ste izmenili vežbu", 
+    
+
+
+    "of": "od",
+    "waiting": "Čekanje",
+
+    
+
+    "user400": "Nešto je krenulo naopako",
+    "user401": "Ime mora imati najmanje 1 karakter",
+    "user402": "Ime ne može biti duže od 20 karaktera",
+    "user403": "Nevažeće ime",
+    "user404": "Nevažeći email",
+    "user405": "Lozinka mora imati najmanje 8 karaktera",
+    "user406": "Lozinka ne može biti duža od 24 karaktera",
+    "user407": "Lozinka mora imati najmanje 8 karaktera od kojih sadrži bar jedno: veliko slovo, malo slovo, broj i specijalni karakter (!@#$%^&*)",
+    "user408": "Lozinke su različite",
+    "user409": "Morate da prihvatite Pravila korišćenja",
+    "user410": "Uneti email je već u upotrebi",
+    "user411": "Nedeljni cilj može biti od 1 do 7",
+    "user412": "Nije moguće naći korisnika sa unetim podacima",
+    "user413": "Nije moguće naći korisnika sa unetim podacima",
+
+    "exercise400": "Nešto je krenulo naopako",
+    "exercise401": "Ime mora imati najmanje 1 karakter",
+    "exercise402": "Ime ne može biti duže od 20 karaktera",
+    "exercise403": "Nevažeće ime",
+    "exercise404": "kcal ne može biti manji od 0",
+    "exercise405": "Potrebno vreme ne može biti manje od 0",
+    "exercise406": "Težina može biti 1, 2 ili 3",
+    "exercise407": "Kod je obavezan"
+}

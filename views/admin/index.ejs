@@ -8,7 +8,7 @@
         <title><%=langText.projectName%> - <%=langText.adminpanel%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link rel="icon" type="image/ico" href="images/logo.ico"/>
+        <link rel="icon" type="image/ico" href="/images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
         <link rel="stylesheet" href="/css/toast.min.css"/>
@@ -28,7 +28,7 @@
                 <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
-                            <p class="text-left ml-2">Hello,</p>
+                            <p class="text-left ml-2"><%=langText.hello%>,</p>
                             <p class="ml-1 text-left cabrion-bold"><%=name%></p>
                         </div>
                     </li>
@@ -73,25 +73,35 @@
                         <div class="row mt-2">
                             <div class="col-12">
                                 <div class="table-responsive">
-                                    <table class="table">
-                                        <tr>
-                                            <td><%=langText.image%></td>
-                                            <td><%=langText.name%></td>
-                                            <td><%=langText.difficulty%></td>
-                                            <td><%=langText.ID%></td>
-                                            <td><%=langText.actions%></td>
-                                        </tr>
-                                            <% for(var i in exercises) { %>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="cabrion-bold">
+                                                <td>#</td>
+                                                <td><%=langText.image%></td>
+                                                <td><%=langText.name%></td>
+                                                <td><%=langText.difficulty%></td>
+                                                <td><%=langText.kcal%></td>
+                                                <td><%=langText.timereq%></td>
+                                                <td><%=langText.actions%></td>
+                                            </tr>
+                                        </thead>
+                                            <% var j = 0; for(var i in exercises) { j++; %>
                                                 <tr>
-                                                    <td>
+                                                    <td class="align-middle cabrion-bold"><%=j%></td>
+                                                    <td class="align-middle">
                                                         <img class="square-container" src='<%-exercises[i].image%>' width="70" height="70">
                                                     </td>
-                                                    <td><%=exercises[i].name%></td>
-                                                    <td><%=exercises[i].difficulty%></td>
-                                                    <td><%=exercises[i].id%></td>
-                                                    <td>
-                                                        <a href="admin/edit/?id=<%=exercises[i].id%>" role="button"><i class="fas fa-dumbbell text-primary"></i></a> 
-                                                        <button onclick="removeExercise('<%=exercises[i].id%>')" class="btn" role="button" type="submit"><i class="fas fa-times text-danger"></i></button> 
+                                                    <td class="align-middle"><%=exercises[i].name%></td>
+                                                    <td class="align-middle">
+                                                        <% if(exercises[i].difficulty == 1) { %><i class="far fa-bolt"></i>
+                                                        <% } else if(exercises[i].difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i>
+                                                        <% } else if(exercises[i].difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <% } %>
+                                                    </td>
+                                                    <td class="align-middle" ><%=exercises[i].kcal%></td>
+                                                    <td class="align-middle" ><%=exercises[i].timeRequired%></td>
+                                                    <td class="align-middle">
+                                                        <a href="admin/edit/?id=<%=exercises[i].id%>" class="mr-2" role="button"><i class="far fa-cog text-primary fa-lg"></i></a> 
+                                                        <a onclick="removeExercise('<%=exercises[i].id%>')" role="button"><i class="far fa-trash text-danger fa-lg"></i></a> 
                                                     </td>
                                                 </tr>
                                             <% } %>
@@ -115,7 +125,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col-md">
-                                <form class="form">
+                                <form class="form" autocomplete="off">
                                     <div class="input-group mb-2 mr-sm-2 mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-signature m-auto"></i></div>
@@ -191,14 +201,12 @@
                         id: id
                     }, 
                     success: function(data) {
-                        if (data.redirect) window.location.href = data.redirect;
-                        else {
-                            $.toast({
-                                type: "success",
-                                title: "<%=langText.exercise_removed%>",
-                                delay: 5000,
-                            });
-                        }
+                        $.toast({
+                            type: "success",
+                            title: "<%=langText.exercise_removed%>",
+                            delay: 5000,
+                        });
+                        if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                     },
                     error: function(jqXHR, textStatus, err) {
                         $.toast({
@@ -229,14 +237,12 @@
                             script: document.getElementById("script").value
                         }, 
                         success: function(data) {
-                            if (data.redirect) window.location.href = data.redirect;
-                            else {
-                                $.toast({
-                                    type: "error",
-                                    title: "<%=langText.exercise_added%>",
-                                    delay: 5000,
-                                });
-                            }
+                            $.toast({
+                                type: "success",
+                                title: "<%=langText.exercise_added%>",
+                                delay: 5000,
+                            });
+                            if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                         },
                         error: function(jqXHR, textStatus, err) {
                             switch(jqXHR.status) {
@@ -279,6 +285,13 @@
                                     $.toast({
                                         type: "error",
                                         title: "<%=langText.exercise406%>",
+                                        delay: 5000,
+                                    });
+                                    break;
+                                case 407:
+                                    $.toast({
+                                        type: "error",
+                                        title: "<%=langText.exercise407%>",
                                         delay: 5000,
                                     });
                                     break;
