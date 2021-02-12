@@ -267,6 +267,10 @@ app.get("/js/toast.min.js", (req, res) => {
     res.sendFile(path.join(__dirname + '/views/js/toast.min.js'));
 });
 
+app.get("/js/lang.js", (req, res) => {
+    res.sendFile(path.join(__dirname + '/views/js/lang.js'));
+});
+
 /*
 
     404

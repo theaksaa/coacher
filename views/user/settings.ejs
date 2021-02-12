@@ -8,6 +8,7 @@
         <title><%=langText.projectName%> - <%=langText.settings%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
@@ -129,7 +130,33 @@
                                     <div class="text-center">
                                         <button id="submitProfile" class="custom-btn btn-purple btn1 mt-2" role="button" type="submit"><i class="fas fa-save"></i> <%=langText.save%></button> 
                                     </div>
+                                    
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-left cabrion-bold"><%=langText.language%></h3>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <p class="text-left"><%=langText.language_desc%></p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <a id="lang_sr" href=""><span class="flag-icon flag-icon-rs fa-lg"></span></a>
+                                <a id="lang_en" href=""><span class="flag-icon flag-icon-us fa-lg"></span></a>
                             </div>
                         </div>
                     </div>
@@ -157,6 +184,7 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="/js/toast.min.js"></script>
+        <script src="/js/lang.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
