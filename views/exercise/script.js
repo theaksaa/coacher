@@ -119,10 +119,16 @@ function DrawSkeleton() {
 let state = false;
 let exerciseCount = 0;
 let exerciseRepetitions = 5;
+let first = true;
 
 function Exercise() {
     let angle = calculateAngle(pose.rightWrist, pose.rightElbow, pose.rightShoulder).toFixed(2);
 
+    if(first) {
+        first = false;
+        document.getElementById('status').innerHTML = 'Move your arm up !';
+        document.getElementById('image').src = 'https://thumbs.dreamstime.com/z/arm-bent-elbow-one-asian-girl-against-gray-background-95883611.jpg';
+    }
     if(Math.abs(180 - angle) <= 20 && state == false) {
         state = true;
         document.getElementById('status').innerHTML = 'Move your arm up !';
@@ -157,6 +163,7 @@ $('#startExercise').click(function(event) {
     else {
         isActive = false;
         ResetVariables();
+        document.getElementById('image').src = '';
         document.getElementById('status').innerHTML = 'Exercise stopped';
         document.getElementById('startExercise').innerHTML = 'Start exercise';
     }

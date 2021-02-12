@@ -284,10 +284,12 @@
             let state = false;
             let exerciseCount = 0;
             let exerciseRepetitions = parseInt('<%-exercise.repetitions%>');
+            let first = true;
 
             var Exercise = new Function("<%-exercise.script%>");
 
             function ResetVariables() {
+                first = true;
                 state = false;
                 exerciseCount = 0;
                 timeStarted = null;
@@ -307,6 +309,7 @@
                 else {
                     isActive = false;
                     ResetVariables();
+                    document.getElementById('image').src = '';
                     document.getElementById('status').innerHTML = 'Exercise stopped';
                     document.getElementById('startExercise').innerHTML = 'Start exercise';
                 }
