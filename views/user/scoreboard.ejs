@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title><%=langText.projectName%> - <%=langText.scoreboard%></title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link rel="icon" type="image/ico" href="/images/logo.ico"/>
+        <link rel="stylesheet" href="/css/style.css"/>
+        <link rel="stylesheet" href="/css/fontawesome.css"/>
+
+        <style>
+            body {
+                background-color: #f0f0f0;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
+            <div class="container d-flex justify-content-between">
+                <a href="/"><img class="mr-2" src="/images/logo_colored.svg" width="40" height="40"></a>
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
+                        <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
+                            <p class="text-left ml-2"><%=langText.hello%>,</p>
+                            <p class="ml-1 text-left cabrion-bold"><%=name%></p>
+                        </div>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a href="/user" role="button"><i class="far fa-user fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a href="/user/settings" role="button"><i class="far fa-cog fa-lg"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/user/logout" role="button"><i class="far fa-sign-out-alt fa-lg"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-left cabrion-bold"><%=langText.scoreboard%></h3>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <p class="text-left"><%=langText.scoreboard_desc%></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5 shadow-2">
+            <div class="pl-5 pr-5">
+                <div class="row">
+                    <div class="panel-container w-100">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="cabrion-bold">
+                                                <td>#</td>
+                                                <td></td>
+                                                <td><%=langText.name%></td>
+                                                <td><%=langText.score%></td>
+                                            </tr>
+                                        </thead>
+                                            <% var j = 0; for(var i in scoreboard) { j++; %>
+                                                <tr>
+                                                    <td class="align-middle cabrion-bold"><%=j%></td>
+                                                    <td class="align-middle samewidth">
+                                                        <% if(j == 1) { %><i class="far fa-medal"></i><% } %>
+                                                        <% if(j == 2) { %><i class="far fa-award"></i><% } %>
+                                                        <% if(j == 3) { %><i class="far fa-trophy"></i><% } %>
+                                                    </td>
+                                                    <td class="align-middle"><%=scoreboard[i].name%></td>
+                                                    <td class="align-middle"><%=scoreboard[i].score%></td>
+                                                </tr>
+                                            <% } %>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container pt-5">
+            <p class="text-center"><%=langText.copyright%></p>
+        </section>
+
+        <!-- move top -->
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="<%=langText.gotop%>"><i class="fas fa-angle-up"></i></button>
+        <script src="/js/scroll.js"></script>
+
+        <script type="text/javascript">
+            function StartExercise(id) {
+                document.getElementById(id).scrollIntoView(true);
+            }
+        </script>
+
+        <!-- Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>

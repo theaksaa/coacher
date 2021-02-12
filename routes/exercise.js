@@ -36,6 +36,7 @@ router.post("/finish", auth, async (req, res) => {
             const exercise = await Exercise.findById(id);
             if(exercise) {
                 user.exercises.push({ id: mongoose.Types.ObjectId(id), timeStarted: new Date(parseInt(timeStarted)), timeElapsed: parseFloat(timeElapsed).toFixed(2) });
+                user.score += (exercise.timeRequired ** (exercise.difficulty / 10.0)) * 100;
                 await user.save();
 
                 return res.status(200).json({ message: "Saved" });

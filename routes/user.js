@@ -208,6 +208,26 @@ router.get("/settings", auth, async (req, res) => {
     }
 });
 
+router.get("/scoreboard", auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+        const usersarr = await User.find();
+
+        var scoreboard = [];
+        for(var i in usersarr) {
+            scoreboard.push({ name: usersarr[i].name, score: parseFloat(usersarr[i].score) });
+        }
+
+        scoreboard.sort((a, b) => (a.score < b.score) ? 1 : (a.score === b.score) ? ((a.score < b.score) ? 1 : -1) : -1 );
+
+        if (user) res.render(path.join(__dirname + '/../views/user/scoreboard.ejs'), { name: user.name, scoreboard, moment: moment });
+        else return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "User not found" });
+    } catch (e) {
+        logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
+        return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Server error: " + e });
+    }
+});
+
 router.get("/logout", auth, async (req, res) => {
     try {
         res.cookie('auth', null);

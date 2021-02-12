@@ -24,6 +24,12 @@
 
 
 
+    "scoreboard": "Scoreboard",
+    "scoreboard_desc": "Welcome to scoreboard",
+    "score": "Score",
+
+
+
     "button_start": "Start training!",
     "welcome1": "Your virtual",
     "coach": "coach",
