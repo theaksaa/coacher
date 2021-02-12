@@ -15,7 +15,124 @@
         <p id='status'>Loading model...</p>
         <p id='nose'>NOSE</p>
         <p id='angle' style="font-size: 50px;">ANGLE</p>
-        <script src="script.js"></script>
+        <script>
+            let canvas = null, video = null, poseNet = null, pose = null, skeleton = null, isActive = false;
+            let timeStarted = null;
+
+            function setup() {
+                canvas = createCanvas(320, 240);
+                canvas.parent('canvas');
+
+                video = createCapture(VIDEO);
+                video.size(320, 240);
+                video.hide();
+
+                poseNet = ml5.poseNet(video, function() {
+                        document.getElementById('status').innerHTML = 'Exercise loaded !';
+                    });
+                    poseNet.on('pose', gotPoses);
+                isActive = true;
+
+            }
+
+            function Finish() {
+                let timeElapsed = (Date.now() - timeStarted) / (1000 * 60);
+                isActive = false;
+
+                ResetVariables();
+            }
+
+            function gotPoses(poses) {
+                if(poses.length > 0) {
+                    pose = poses[0].pose;
+                    skeleton = poses[0].skeleton;
+                } else {
+                    pose = null;
+                    skeleton = null;
+                }
+            }
+
+            function draw() {
+                image(video, 0, 0);
+
+                if(pose && isActive) {
+                    Exercise();
+                    DrawKeyPoints();
+                    DrawSkeleton();
+                } else {
+                    clear();
+                    image(video, 0, 0);
+                }
+            }
+
+            function DrawKeyPoints() {
+                for (let i = 0; i < pose.keypoints.length; i++) {
+                    let x = pose.keypoints[i].position.x;
+                    let y = pose.keypoints[i].position.y;
+                    if(pose.keypoints[i].score >= 0.75) fill(0, 255, 0);
+                    else fill(255, 0, 0);
+                    strokeWeight(0);
+                    ellipse(x, y, 8, 8);            
+                }
+            }
+
+            function DrawSkeleton() {
+                for (let j = 0; j < skeleton.length; j++) {
+                    let partA = skeleton[j][0];
+                    let partB = skeleton[j][1];
+                    stroke(255);
+                    strokeWeight(1);
+                    line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
+                }
+            }
+
+
+
+
+            // Exercise 1
+
+
+            let state = false;
+            let exerciseCount = 0;
+            let exerciseRepetitions = 5;
+            let first = true;
+            let var1 = 0;
+
+            function Exercise() {
+                line(0, 60, 320, 60);
+
+                if(first) {
+                    first = false;
+                    document.getElementById('status').innerHTML = 'Jump';
+                    document.getElementById('image').src = 'https://i.imgur.com/kod93t1.png';
+                }
+                if((pose.leftShoulder.y + pose.rightShoulder.y) / 2 >= 90 && state == false) {
+                    state = true;
+                    document.getElementById('status').innerHTML = 'Jump';
+                    document.getElementById('image').src = 'https://i.imgur.com/kod93t1.png';
+                }
+                else if((pose.leftShoulder.y + pose.rightShoulder.y) / 2 <= 60 && state == true) {
+                    state = false;
+                    document.getElementById('status').innerHTML = 'Land';
+                    document.getElementById('exerciseCount').innerHTML = ++exerciseCount;
+                    document.getElementById('image').src = 'https://i.imgur.com/DViFtan.png';
+                }
+            }
+
+            function ResetVariables() {
+                state = false;
+                exerciseCount = 0;
+                timeStarted = null;
+                timeFinished = null;
+            }
+
+            function calculateAngle(A, B, C) {
+                var AB = Math.sqrt(Math.pow(B.x-A.x,2)+ Math.pow(B.y-A.y,2));    
+                var BC = Math.sqrt(Math.pow(B.x-C.x,2)+ Math.pow(B.y-C.y,2)); 
+                var AC = Math.sqrt(Math.pow(C.x-A.x,2)+ Math.pow(C.y-A.y,2));
+                return Math.acos((BC*BC+AB*AB-AC*AC)/(2*BC*AB))*(180/Math.PI);
+            }
+        </script>
     </body>
 
 </html>

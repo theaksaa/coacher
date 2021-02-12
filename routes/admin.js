@@ -50,7 +50,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
     var difficulty = parseInt(_difficulty, 10);
     var kcal = parseInt(_kcal, 10);
     var timeRequired = parseFloat(_timeRequired).toFixed(2);
-    var repetitions = parseInt(repetitions, 10);
+    var repetitions = parseInt(_repetitions, 10);
 
     try {
         if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
@@ -63,7 +63,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
         if(repetitions <= 0 || repetitions >= 1000) return res.status(408).json({ message: "Repetitions can't be less than 0 and more than 1000" });
 
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
-            let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired });
+            let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired, repetitions });
             await exercise.save();
 
             logger.log("INFO", "\x1b[32m", "Exercise created", "id", exercise.id, "name", name);
