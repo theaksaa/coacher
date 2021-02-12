@@ -5,9 +5,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher</title>
+        <title><%=langText.projectName%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
         <link rel="stylesheet" href="/css/style.css"/>
         <link rel="stylesheet" href="/css/fontawesome.css"/>
@@ -18,10 +19,17 @@
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
                 <img class="mr-2" src="images/logo_colored.svg" width="40" height="40">
-                <a href="index.html" class="navbar-brand d-flex align-items-center" style="font-family: HammersmithOne-Regular; font-size: 35px;">coacher</a>
+                <a href="index.html" class="navbar-brand d-flex align-items-center" style="font-family: HammersmithOne-Regular; font-size: 35px; text-transform: lowercase;"><%=langText.projectName%></a>
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item d-flex align-items-center mr-3">
+                        <% if(langText.locale == "en") { %>
+                            <a id="lang_sr" href=""><span class="flag-icon flag-icon-rs"></span></a>
+                        <% } else { %>
+                            <a id="lang_en" href=""><span class="flag-icon flag-icon-us"></span></a>
+                        <% } %>
+                    </li>
                     <li class="nav-item">
-                        <a href="user" class="btn custom-btn btn-silver" role="button"><i class="far fa-dumbbell"></i> Start training!</a>
+                        <a href="user" class="btn custom-btn btn-silver" role="button"><i class="far fa-dumbbell"></i> <%=langText.button_start%></a>
                     </li>
                 </ul>
             </div>
@@ -30,9 +38,9 @@
         <section class="container pt-5 shadow-2">
             <div class="row pl-2 pr-2">
                 <div class="col-md align-self-center mb-5">
-                    <h1 class="text-left mt-5 cabrion-bold">Your virtual <a style="color: #766DF4;">coach</a></h1>
-                    <h4 class="text-left h5 font-color-2">Everything you need to start exercising in a proper way.</h4>
-                    <button onclick="letsBegin()" class="custom-btn btn-purple mt-3" role="button">Let's begin <i class="fas fa-arrow-down"></i></button>
+                    <h1 class="text-left mt-5 cabrion-bold"><%=langText.welcome1%> <a style="color: #766DF4;"><%=langText.coach%></a></h1>
+                    <h4 class="text-left h5 font-color-2"><%=langText.welcome2%></h4>
+                    <button onclick="letsBegin()" class="custom-btn btn-purple mt-3" role="button"><%=langText.button_letsbegin%> <i class="fas fa-arrow-down"></i></button>
                 </div>
                 <div class="col-md w-100 align-self-center">
                     <img src="images/m1.svg" style="width: 100%; height: auto;">
@@ -40,41 +48,41 @@
             </div>
         </section>
 
-        <div id="m1" class="w-100 mt-5" style="background-color: #F7F7FC;">
+        <div id="sec1" class="w-100 mt-5" style="background-color: #F7F7FC;">
             <section class="container pt-5 pb-5">
                 <div class="row pl-2 pr-2">
                     <div class="col-md align-self-center text-center">
-                        <p class="h1 cabrion-bold">Become part of the team!</p>
-                        <p class="pl-5 pr-5 myfont font-color-2">Dive in and become the best version of yourself</p>
+                        <p class="h1 cabrion-bold"><%=langText.sec1%></p>
+                        <p class="pl-5 pr-5 myfont font-color-2"><%=langText.sec1_desc%></p>
                         <img src="images/m2.svg" style="width: 70%; height: auto;">
                     </div>
                 </div>
             </section>
         </div>
 
-        <div style="background-image: linear-gradient(90deg, #766DF4, #6A9BF4);">
+        <div id="sec2" style="background-image: linear-gradient(90deg, #766DF4, #6A9BF4);">
             <section class="container pt-5 pb-5">
-                <p class="h1 cabrion-bold text-center text-white">Start exercising now!</p>
+                <p class="h1 cabrion-bold text-center text-white"><%=langText.sec2%></p>
             </section>
         </div>
 
-        <section class="container pt-5 pb-5">
+        <section id="sec3" class="container pt-5 pb-5">
             <div class="row pl-2 pr-2">
                 <div class="col-md align-self-center mb-5">
                     <img src="images/robot.svg" style="width: 100%; height: auto;">
                 </div>
                 <div class="col-md w-100 align-self-center">
-                    <p class="h1 cabrion-bold">Let us do the monitoring part</p>
-                    <p class="myfont text-justify font-color-2">Our AI will watch over you, count your reps and make sure you are doing exercises correctly. We count only reps that we find acceptable, which will stop you from cheating and improve your health. This time for real.</p>
+                    <p class="h1 cabrion-bold"><%=langText.sec3%></p>
+                    <p class="myfont text-justify font-color-2"><%=langText.sec3_desc%></p>
                 </div>
             </div>
         </section>
 
-        <section class="container pb-5">
+        <section id="sec4" class="container pb-5">
             <div class="row pl-2 pr-2">
                 <div class="col-md w-100 align-self-center mb-5">
-                    <p class="h1 cabrion-bold">Anywhere you go</p>
-                    <p class="myfont text-justify font-color-2">It's like having a personal trainer you can take everywhere with yourself, any time, any place with no cost! Like exercising before going to bed, or perhaps you are one of those early birds that can't wait for their trainer, we got you.</p>
+                    <p class="h1 cabrion-bold"><%=langText.sec4%></p>
+                    <p class="myfont text-justify font-color-2"><%=langText.sec4_desc%></p>
                 </div>
                 <div class="col-md align-self-center">
                     <img src="images/m3.svg" style="width: 100%; height: auto;">
@@ -82,21 +90,21 @@
             </div>
         </section>
 
-        <div style="background-image: linear-gradient(90deg, #766DF4, #6A9BF4);">
+        <div id="sec5" style="background-image: linear-gradient(90deg, #766DF4, #6A9BF4);">
             <section class="container pt-5 pb-5">
-                <p class="h1 cabrion-bold text-center text-white">Make your own training program</p>
-                <p class="myfont text-center" style="color: #F0F0F0;">Love coding? Want to make your own training program? You can make your very own AI to track custom exercises you coded yourself.</p>
-                <p class="myfont text-center" style="color: #F0F0F0; font-style: italic;">Coming soon...</p>
+                <p class="h1 cabrion-bold text-center text-white"><%=langText.sec5%></p>
+                <p class="myfont text-center" style="color: #F0F0F0;"><%=langText.sec5_desc%></p>
+                <p class="myfont text-center" style="color: #F0F0F0; font-style: italic;"><%=langText.sec5_desc2%></p>
             
             </section>
         </div>
 
-        <div class="w-100" style="background-color: #F7F7FC;">
+        <div id="sec6" class="w-100" style="background-color: #F7F7FC;">
             <section class="container pt-5 pb-5">
                 <div class="row pl-2 pr-2">
                     <div class="col-md align-self-center text-center">
-                        <p class="h1 cabrion-bold">Team</p>
-                        <p class="pl-5 pr-5 myfont font-color-2">Or only one person?</p>
+                        <p class="h1 cabrion-bold"><%=langText.sec6%></p>
+                        <p class="pl-5 pr-5 myfont font-color-2"><%=langText.sec6_desc%></p>
 
                         <div class="row pl-2 pr-2">
                             <div class="col-md align-self-center mb-5">
@@ -105,9 +113,9 @@
                                 </div>
                             </div>
                             <div class="col-md w-100 align-self-center">
-                                <p class="h1 cabrion-bold">Uroš Aksentijević</p>
-                                <p class="myfont font-color-2 font-weight-bold" style="text-transform: uppercase;">CEO / Founder / Developer</p>
-                                <p class="myfont font-color-2">Fullstack developer, Coacher founder</p>
+                                <p class="h1 cabrion-bold"><%=langText.founder%></p>
+                                <p class="myfont font-color-2 font-weight-bold" style="text-transform: uppercase;"><%=langText.founder_tags%></p>
+                                <p class="myfont font-color-2"><%=langText.founder_desc%></p>
                             </div>
                         </div>
                     </div>
@@ -115,20 +123,20 @@
             </section>
         </div>
         
-        <div class="w-100" style="background-color: #4A4B65;">
+        <footer class="w-100" style="background-color: #4A4B65;">
             <section class="container pt-3">
                 <div class="row pl-2 pr-2">
                     <div class="col-md align-self-center text-center">
-                        <p class="pl-5 pr-5 myfont font-color-2">All rights reserved © Coacher</p>
+                        <p class="pl-5 pr-5 myfont font-color-2"><%=langText.copyright%></p>
                         <p></p>
                     </div>
                 </div>
                 
             </section>
-        </div>
+        </footer>
 
         <!-- move top -->
-        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="<%=langText.gotop%>"><i class="fas fa-angle-up"></i></button>
         <script src="/js/scroll.js"></script>
 
         <script type="text/javascript">
@@ -143,5 +151,16 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#lang_sr').click(function(event) {
+                    document.cookie = 'ulang=sr';
+                });
+                $('#lang_en').click(function(event) {
+                    document.cookie = 'ulang=en';
+                });
+            });
+        </script>
     </body>
 </html>

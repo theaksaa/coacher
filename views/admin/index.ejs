@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher- Admin Panel</title>
+        <title><%=langText.projectName%> - <%=langText.adminpanel%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
@@ -26,7 +26,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -34,7 +34,7 @@
                         <p id="modalText"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
 
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
-                <img class="mr-2" src="/images/logo_colored.svg" width="40" height="40">
+                <a href="/"><img class="mr-2" src="/images/logo_colored.svg" width="40" height="40"></a>
                 <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
@@ -66,12 +66,12 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Admin panel</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.adminpanel%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <p class="text-left">Welcome to admin panel!</p>
+                                <p class="text-left"><%=langText.adminpanel_desc%></p>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Exercises</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.exercises%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -93,11 +93,11 @@
                                 <div class="table-responsive">
                                     <table class="table">
                                         <tr>
-                                            <td>Image</td>
-                                            <td>Name</td>
-                                            <td>Difficulty</td>
-                                            <td>ID</td>
-                                            <td>Actions</td>
+                                            <td><%=langText.image%></td>
+                                            <td><%=langText.name%></td>
+                                            <td><%=langText.difficulty%></td>
+                                            <td><%=langText.ID%></td>
+                                            <td><%=langText.actions%></td>
                                         </tr>
                                             <% for(var i in exercises) { %>
                                                 <tr>
@@ -128,7 +128,7 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Add exercise</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.add_exercise%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -138,57 +138,47 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-signature"></i></div>
                                         </div>
-                                        <input id="name" type="text" class="form-control custom-input" placeholder="Name">
+                                        <input id="name" type="text" class="form-control custom-input" placeholder="<%=langText.name%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-bolt"></i></div>
                                         </div>
-                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="Difficulty">
+                                        <input id="difficulty" type="text" class="form-control custom-input" placeholder="<%=langText.difficulty%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-fire"></i></div>
                                         </div>
-                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="kcal">
+                                        <input id="kcal" type="text" class="form-control custom-input" placeholder="<%=langText.kcal%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-stopwatch"></i></div>
                                         </div>
-                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="Time Required (minutes)">
+                                        <input id="timeRequired" type="text" class="form-control custom-input" placeholder="<%=langText.timereq%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-image"></i></div>
                                         </div>
-                                        <input id="image" type="text" class="form-control custom-input" placeholder="Image">
+                                        <input id="image" type="text" class="form-control custom-input" placeholder="<%=langText.image%>">
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="fas fa-code"></i></div>
                                         </div>
-                                        <input id="script" type="text" class="form-control custom-input" placeholder="Script">
+                                        <input id="script" type="text" class="form-control custom-input" placeholder="<%=langText.script%>">
                                     </div>
     
                                     <div class="buttons-container">
-                                        <button id="exerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-plus"></i> Add exercise</button> 
+                                        <button id="exerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-plus"></i> <%=langText.add_exercise%></button> 
                                     </div>
                                     <p id="modalText"></p>
                                 </form>
                             </div>
                             <div class="col-md justify-content-center align-self-center text-center">
-                                <ol class="pl-0" type="none">
-                                    <li>
-                                        • Name must have maximum 20 charcters •
-                                    </li>
-                                    <li>
-                                        • Difficulty can be 1, 2 or 3 •
-                                    </li>
-                                    <li>
-                                        • Image is base64 string (<a href="https://codebeautify.org/image-to-base64-converter" target="_">Converter</a>) •
-                                    </li>
-                                </ol>
+                                <p><%-langText.add_exercise_desc%></p>
                             </div>
                         </div>
                     </div>
@@ -197,11 +187,11 @@
         </section>
 
         <section class="container pt-5">
-            <p class="text-center">Coacher © 2021</p>
+            <p class="text-center"><%=langText.copyright%></p>
         </section>
 
         <!-- move top -->
-        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="<%=langText.gotop%>"><i class="fas fa-angle-up"></i></button>
         <script src="/js/scroll.js"></script>
 
         <!-- Bootstrap -->
@@ -222,13 +212,13 @@
                     success: function(data) {
                         if (data.redirect) window.location.href = data.redirect;
                         else {
-                            $("#modalTitle").html("Saved");
+                            $("#modalTitle").html("<%=langText.successfully%>");
                             $("#modalText").html(data.message);
                             $("#modal").modal();
                         }
                     },
                     error: function(jqXHR, textStatus, err) {
-                        $("#modalTitle").html("Error");
+                        $("#modalTitle").html("<%=langText.error%>");
                         $("#modalText").html(JSON.parse(jqXHR.responseText).message);
                         $("#modal").modal();
                     }
@@ -256,14 +246,35 @@
                         success: function(data) {
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modalTitle").html("Saved");
+                                $("#modalTitle").html("<%=langText.successfully%>");
                                 $("#modalText").html(data.message);
                                 $("#modal").modal();
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modalTitle").html("Error");
-                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                            $("#modalTitle").html("<%=langText.error%>");
+                            switch(jqXHR.status) {
+                                case 401:
+                                    $("#modalText").html("<%=langText.exercise401%>");
+                                    break;
+                                case 402:
+                                    $("#modalText").html("<%=langText.exercise402%>");
+                                    break;
+                                case 403:
+                                    $("#modalText").html("<%=langText.exercise403%>");
+                                    break;
+                                case 404:
+                                    $("#modalText").html("<%=langText.exercise404%>");
+                                    break;
+                                case 405:
+                                    $("#modalText").html("<%=langText.exercise405%>");
+                                    break;
+                                case 406:
+                                    $("#modalText").html("<%=langText.exercise406%>");
+                                    break;
+                                default:
+                                    $("#modalText").html("<%=langText.error%>");
+                            }
                             $("#modal").modal();
                         }
                     });

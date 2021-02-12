@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher - Edit exercise</title>
+        <title><%=langText.projectName%> - <%=langText.edit_exercise%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
@@ -26,7 +26,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -34,7 +34,7 @@
                         <p id="modalText"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
                     </div>
                 </div>
             </div>
@@ -42,11 +42,11 @@
 
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
-                <img class="mr-2" src="/images/logo_colored.svg" width="40" height="40">
+                <a href="/"><img class="mr-2" src="/images/logo_colored.svg" width="40" height="40"></a>
                 <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
-                            <p class="text-left ml-2">Hello,</p>
+                            <p class="text-left ml-2"><%=langText.hello%>,</p>
                             <p class="ml-1 text-left cabrion-bold"><%=name%></p>
                         </div>
                     </li>
@@ -69,12 +69,12 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Edit exercise</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.edit_exercise%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-12">
-                                <p class="text-left">Welcome to edit exercise panel!</p>
+                                <p class="text-left"><%=langText.edit_exercise_desc%></p>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col-12">
-                                <h3 class="text-left cabrion-bold">Exercise data</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.exercise_data%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -138,7 +138,7 @@
                                     </div>
     
                                     <div class="buttons-container">
-                                        <button id="editExerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="fas fa-save"></i> Edit exercise</button> 
+                                        <button id="editExerciseSubmit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="fas fa-save"></i> <%=langText.edit_exercise%></button> 
                                     </div>
                                 </form>
                             </div>
@@ -152,11 +152,11 @@
         </section>
 
         <section class="container pt-5">
-            <p class="text-center">Coacher © 2021</p>
+            <p class="text-center"><%=langText.copyright%></p>
         </section>
 
         <!-- move top -->
-        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="<%=langText.gotop%>"><i class="fas fa-angle-up"></i></button>
         <script src="/js/scroll.js"></script>
 
         <!-- Bootstrap -->
@@ -187,14 +187,35 @@
                             console.log(data.message);
                             if (data.redirect) window.location.href = data.redirect;
                             else {
-                                $("#modalTitle").html("Saved");
+                                $("#modalTitle").html("<%=langText.successfully%>");
                                 $("#modalText").html(data.message);
                                 $("#modal").modal();
                             }
                         },
                         error: function(jqXHR, textStatus, err) {
-                            $("#modalTitle").html("Error");
-                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                            $("#modalTitle").html("<%=langText.error%>");
+                            switch(jqXHR.status) {
+                                case 401:
+                                    $("#modalText").html("<%=langText.exercise401%>");
+                                    break;
+                                case 402:
+                                    $("#modalText").html("<%=langText.exercise402%>");
+                                    break;
+                                case 403:
+                                    $("#modalText").html("<%=langText.exercise403%>");
+                                    break;
+                                case 404:
+                                    $("#modalText").html("<%=langText.exercise404%>");
+                                    break;
+                                case 405:
+                                    $("#modalText").html("<%=langText.exercise405%>");
+                                    break;
+                                case 406:
+                                    $("#modalText").html("<%=langText.exercise406%>");
+                                    break;
+                                default:
+                                    $("#modalText").html("<%=langText.error%>");
+                            }
                             $("#modal").modal();
                         }
                     });

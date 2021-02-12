@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher</title>
+        <title><%=langText.projectName%> - <%=langText.signin%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
@@ -27,7 +27,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -35,7 +35,7 @@
                         <p id="modalText"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
                     </div>
                 </div>
             </div>
@@ -50,8 +50,8 @@
                         </div>
                         <div class="col-md">
                             <div class="mb-5">
-                                <h1 class="text-left cabrion-bold">Sign in</h1>
-                                <h4 class="text-left h5 font-color-2">Use your Coacher account</h4>
+                                <h1 class="text-left cabrion-bold"><%=langText.signin%></h1>
+                                <h4 class="text-left h5 font-color-2"><%=langText.signin_desc%></h4>
                             </div>
 
                             <form class="form">
@@ -59,18 +59,18 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-envelope"></i></div>
                                     </div>
-                                    <input id="email" type="text" class="form-control custom-input" placeholder="Email">
+                                    <input id="email" type="text" class="form-control custom-input" placeholder="<%=langText.email%>">
                                 </div>
                                 <div class="input-group mb-2 mr-sm-2 mt-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-lock"></i></div>
                                     </div>
-                                    <input id="password" type="password" class="form-control custom-input" placeholder="Password">
+                                    <input id="password" type="password" class="form-control custom-input" placeholder="<%=langText.password%>">
                                 </div>
 
                                 <div class="buttons-container mt-5">
-                                    <button id="submit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-sign-in-alt"></i> Sign in</button> 
-                                    <a href="register" class="btn custom-btn btn-silver btn2" role="button">I don't have an account</a>
+                                    <button id="submit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-sign-in-alt"></i> <%=langText.signin%></button> 
+                                    <a href="register" class="btn custom-btn btn-silver btn2" role="button"><%=langText.donthaveacc%></a>
                                 </div>
                             </form>
                         </div>
@@ -103,8 +103,17 @@
                         },
                         error: function(jqXHR, textStatus, err) {
                             $("#modal").modal();
-                            $("#modalTitle").html("Error");
-                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                            $("#modalTitle").html("<%=langText.error%>");
+                            switch(jqXHR.status) {
+                                case 412:
+                                    $("#modalText").html("<%=langText.user412%>");
+                                    break;
+                                case 413:
+                                    $("#modalText").html("<%=langText.user413%>");
+                                    break;
+                                default:
+                                    $("#modalText").html("<%=langText.error%>");
+                            }
                         }
                     });
                 });

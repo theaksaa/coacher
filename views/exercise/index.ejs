@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher - Exercise</title>
+        <title><%=langText.projectName%> - <%=langText.exercise%></title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
@@ -30,7 +30,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -38,7 +38,7 @@
                         <p id="modalText"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
                     </div>
                 </div>
             </div>
@@ -46,11 +46,11 @@
 
         <nav class="navbar navbar-expand navbar-light pt-5 pb-5 px-xl-3">
             <div class="container d-flex justify-content-between">
-                <img class="mr-2" src="/images/logo_colored.svg" width="40" height="40">
+                <a href="/"><img class="mr-2" src="/images/logo_colored.svg" width="40" height="40"></a>
                 <ul class="navbar-nav ml-auto align-items-center">
                     <li class="nav-item">
                         <div class="d-flex mr-3 mt-1" style="width: auto; height: 30px;">
-                            <p class="text-left ml-2">Hello,</p>
+                            <p class="text-left ml-2"><%=langText.hello%>,</p>
                             <p class="ml-1 text-left cabrion-bold"><%=name%></p>
                         </div>
                     </li>
@@ -78,12 +78,12 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <p class="text-left cabrion-bold">
-                                            <% if(exercise.difficulty == 1) { %><i class="far fa-bolt"></i> Beginner
-                                            <% } else if(exercise.difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Advanced
-                                            <% } else if(exercise.difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> Intermediate <% } %>
+                                            <% if(exercise.difficulty == 1) { %><i class="far fa-bolt"></i> <%=langText.beginner%>
+                                            <% } else if(exercise.difficulty == 2) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.advanced%>
+                                            <% } else if(exercise.difficulty == 3) { %><i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <i class="far fa-bolt"></i> <%=langText.intermediate%> <% } %>
                                             <br/>
                                             <i class="far fa-stopwatch"></i> <%=exercise.timeRequired%>min &nbsp;
-                                            <i class="far fa-fire"></i> <%=exercise.kcal%>kcal
+                                            <i class="far fa-fire"></i> <%=exercise.kcal%><%=langText.kcal%>
                                         </p>
                                     </div>
                                 </div>
@@ -105,7 +105,7 @@
                     <div class="w-100">
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center">
-                                <button onclick="ExerciseClick()" id="startExercise" class="custom-btn btn-purple btn1" role="button" type="submit"><i class="far fa-play"></i> Start exercise</button> 
+                                <button onclick="ExerciseClick()" id="startExercise" class="custom-btn btn-purple btn1" role="button" type="submit"><i class="far fa-play"></i> <%=langText.start_exercise%></button> 
                             </div>
                         </div>
                     </div>
@@ -119,18 +119,18 @@
                     <div class="panel-container w-100">
                         <div class="row">
                             <div class="col">
-                                <h3 class="text-left cabrion-bold">Exercise</h3>
+                                <h3 class="text-left cabrion-bold"><%=langText.exercise%></h3>
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md my-auto">
                                 <div class="d-flex justify-content-center">
                                     <h1 id="exerciseCount" class="text-left cabrion-bold">0</h1>
-                                    <h3 class="text-left cabrion-bold align-self-end ml-2 mr-2 pb-1">of</h3>
+                                    <h3 class="text-left cabrion-bold align-self-end ml-2 mr-2 pb-1"><%=langText.of%></h3>
                                     <h1 id="exerciseRepetitions" class="text-left cabrion-bold" style="color: #766DF4;">0</h1>
                                 </div>
                                 <div class="text-center">
-                                    <p id="status" class="cabrion-bold">Waiting...</p>
+                                    <p id="status" class="cabrion-bold"><%=langText.waiting%></p>
                                     <img id="image" class="square-container" src="" width="200" height="200">
                                 </div>
                             </div>
@@ -144,13 +144,13 @@
         </section>
 
         <section class="container pt-5">
-            <p class="text-center">Coacher © 2021</p>
+            <p class="text-center"><%=langText.copyright%></p>
         </section>
 
         <p style="display: none;" id="p5_loading"></p>
 
         <!-- move top -->
-        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="Go to top"><i class="fas fa-angle-up"></i></button>
+        <button onclick="topFunction()" id="movetop" class="custom-btn btn-purple" title="<%=langText.gotop%>"><i class="fas fa-angle-up"></i></button>
         <script src="/js/scroll.js"></script>
 
         <!-- Bootstrap -->
@@ -175,23 +175,23 @@
             }
 
             function start(again) {
-                document.getElementById('startExercise').innerHTML = 'Stop exercise';
+                document.getElementById('startExercise').innerHTML = '<%=langText.stop_exercise%>';
 
                 if(!again) {
                     var x = document.getElementById('exercisePanel');
                     if (x.style.display === 'none') x.style.display = 'block';
                     else x.style.display = 'none';
                 
-                    document.getElementById('status').innerHTML = 'Loading Exercise...';
+                    document.getElementById('status').innerHTML = '<%=langText.loading_exercise%>';
                 
                     poseNet = ml5.poseNet(video, function() {
-                        document.getElementById('status').innerHTML = 'Exercise loaded !';
+                        document.getElementById('status').innerHTML = '<%=langText.loaded_exercise%>';
                         Exercise();
                     });
                     poseNet.on('pose', gotPoses);
                 }
                 else {
-                    document.getElementById('status').innerHTML = 'Exercise loaded !';
+                    document.getElementById('status').innerHTML = '<%=langText.loaded_exercise%>';
                     Exercise();
                 }
 
@@ -214,9 +214,9 @@
 
             function Finish() {
                 let timeElapsed = (Date.now() - timeStarted) / (1000 * 60);
-                document.getElementById('status').innerHTML = 'Exercise finished - Elapsed: ' + (timeElapsed < 1 ? ((timeElapsed * 60).toFixed(2) + 's') : timeElapsed.toFixed(2) + 'min');
+                document.getElementById('status').innerHTML = '<%=langText.finished_exercise%> - <%=langText.elapsed%>: ' + (timeElapsed < 1 ? ((timeElapsed * 60).toFixed(2) + 's') : timeElapsed.toFixed(2) + 'min');
                 document.getElementById('image').src = '/images/completed.svg';
-                document.getElementById('startExercise').innerHTML = 'Start exercise';
+                document.getElementById('startExercise').innerHTML = '<%=langText.start_exercise%>';
                 isActive = false;
                 $.ajax({
                     url: '/exercise/finish',
@@ -232,7 +232,7 @@
                     },
                     error: function(jqXHR, textStatus, err) {
                         $('#modal').modal();
-                        $('#modalTitle').html('Error');
+                        $('#modalTitle').html('<%=langText.error%>');
                         $('#modalText').html(JSON.parse(jqXHR.responseText).message);
                     }
                 });
@@ -310,8 +310,8 @@
                     isActive = false;
                     ResetVariables();
                     document.getElementById('image').src = '';
-                    document.getElementById('status').innerHTML = 'Exercise stopped';
-                    document.getElementById('startExercise').innerHTML = 'Start exercise';
+                    document.getElementById('status').innerHTML = '<%=langText.stopped_exercise%>';
+                    document.getElementById('startExercise').innerHTML = '<%=langText.start_exercise%>';
                 }
                 document.getElementById("exercisePanel").scrollIntoView(true);
             }

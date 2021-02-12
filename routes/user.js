@@ -18,21 +18,21 @@ router.post("/signup", async (req, res) => {
     const { name, email, password, confirmPassword, checkToS } = req.body;
 
     try {
-        if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
-        if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
-        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
+        if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
+        if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
+        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
 
-        if(!emailRegex({exact: true}).test(email)) return res.status(400).json({ message: "Entered email address is not valid!" });
+        if(!emailRegex({exact: true}).test(email)) return res.status(404).json({ message: "Entered email address is not valid!" });
 
-        if(password.length < 8) return res.status(400).json({ message: "Password must have at least 8 characters!" });
-        if(password.length > 24) return res.status(400).json({ message: "Password can't be longer than 24 characters!" });
-        if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,24}$/g.test(password)) return res.status(400).json({ message: "Password must have at least 8 characters containing one: upper case, lower case, number and special character (!@#$%^&*)!" });
+        if(password.length < 8) return res.status(405).json({ message: "Password must have at least 8 characters!" });
+        if(password.length > 24) return res.status(406).json({ message: "Password can't be longer than 24 characters!" });
+        if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,24}$/g.test(password)) return res.status(407).json({ message: "Password must have at least 8 characters containing one: upper case, lower case, number and special character (!@#$%^&*)!" });
 
-        if(password != confirmPassword) return res.status(400).json({ message: "Password are different!" });
+        if(password != confirmPassword) return res.status(408).json({ message: "Passwords are different!" });
 
-        if(!(checkToS === "true")) return res.status(400).json({ message: "You must agree to the <a href=\"terms\" class=\"stretched-link font-weight-bold\" style=\"position: relative;\">Terms of service</a>" });
+        if(!(checkToS === "true")) return res.status(409).json({ message: "You must agree to the <a href=\"terms\" class=\"stretched-link font-weight-bold\" style=\"position: relative;\">Terms of service</a>" });
 
-        if (await User.findOne({ email })) return res.status(400).json({ message: "Entered email address is already in use!" });
+        if (await User.findOne({ email })) return res.status(410).json({ message: "Entered email address is already in use!" });
 
         let user = new User({ name, email, password });
 
@@ -67,13 +67,13 @@ router.post("/changepass", auth, async (req, res) => {
     if(user) {
         try {
 
-            if(password !== cpassword) return res.status(400).json({ message: "Passwords aren't same!" });
+            if(password !== cpassword) return res.status(408).json({ message: "Passwords are different!" });
     
-            if(password.length < 8) return res.status(400).json({ message: "Password must have at least 8 characters!" });
-            if(password.length > 24) return res.status(400).json({ message: "Password can't be longer than 24 characters!" });
-            if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,24}$/g.test(password)) return res.status(400).json({ message: "Password must have at least 8 characters containing one: upper case, lower case, number and special character (!@#$%^&*)!" });
+            if(password.length < 8) return res.status(405).json({ message: "Password must have at least 8 characters!" });
+            if(password.length > 24) return res.status(406).json({ message: "Password can't be longer than 24 characters!" });
+            if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[0-9a-zA-Z!@#$%^&*]{8,24}$/g.test(password)) return res.status(407).json({ message: "Password must have at least 8 characters containing one: upper case, lower case, number and special character (!@#$%^&*)!" });
     
-            if (!(await bcrypt.compare(oldpassword, user.password))) return res.status(400).json({ message: "Incorrect password!" });
+            if (!(await bcrypt.compare(oldpassword, user.password))) return res.status(412).json({ message: "Incorrect password!" });
     
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
@@ -110,13 +110,13 @@ router.post("/changeprofile", auth, async (req, res) => {
         try {
 
             if(name !== "") {
-                if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
-                if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
-                if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
+                if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
+                if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
+                if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
             }
     
             if(weekGoal !== "") {
-                if(weekGoalInt < 1 || weekGoalInt > 7) return res.status(400).json({ message: "Week goal can be from 1 to 7!" });
+                if(weekGoalInt < 1 || weekGoalInt > 7) return res.status(411).json({ message: "Week goal can be from 1 to 7!" });
             }
     
             user.name = name !== "" ? name : user.name;
@@ -135,7 +135,7 @@ router.post("/changeprofile", auth, async (req, res) => {
             jwt.sign(payload, tokenSecret, { expiresIn: 10800 }, (err, token) => {
                 if (err) throw err;
                 res.cookie('auth', token);
-                return res.status(200).json({ message: "Profile settings changed!" });
+                return res.status(200).json({ message: "<%=langText.error%>" });
             });
             logger.log("INFO", "\x1b[32m", "User changed profile settings", "userid", user.id, "ip", req.ip);
         } catch (e) {
@@ -151,8 +151,8 @@ router.post( "/login", async (req, res) => {
     try {
         let user = await User.findOne({ email });
 
-        if (!user) return res.status(400).json({ message: "User Not Exist" });
-        if (!(await bcrypt.compare(password, user.password))) return res.status(400).json({ message: "Incorrect Password !" });
+        if (!user) return res.status(413).json({ message: "User Not Exist" });
+        if (!(await bcrypt.compare(password, user.password))) return res.status(412).json({ message: "Incorrect Password !" });
 
         user.lastactivity = new Date().getTime();
         await user.save();

@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Coacher</title>
+        <title><%=langText.projectName%> - <%=langText.signup%></title>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="icon" type="image/ico" href="images/logo.ico"/>
@@ -27,7 +27,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="<%=langText.button_close%>">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -35,7 +35,7 @@
                         <p id="modalText"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%=langText.button_close%></button>
                     </div>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                     <div class="row h-100 justify-content-center align-items-center">
                         <div class="col-md">
                             <div class="mb-5">
-                                <h1 class="text-left cabrion-bold">Sign up</h1>
-                                <h4 class="text-left h5 font-color-2">Create your Coacher account</h4>
+                                <h1 class="text-left cabrion-bold"><%=langText.signup%></h1>
+                                <h4 class="text-left h5 font-color-2"><%=langText.signup_desc%></h4>
                             </div>
 
                             <form class="form">
@@ -56,33 +56,33 @@
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-user"></i></div>
                                     </div>
-                                    <input id="name" type="text" class="form-control custom-input" placeholder="Your Name">
+                                    <input id="name" type="text" class="form-control custom-input" placeholder="<%=langText.yourname%>">
                                 </div>
                                 <div class="input-group mb-2 mr-sm-2 mt-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-envelope"></i></div>
                                     </div>
-                                    <input id="email" type="text" class="form-control custom-input" placeholder="Email">
+                                    <input id="email" type="text" class="form-control custom-input" placeholder="<%=langText.email%>">
                                 </div>
                                 <div class="input-group mb-2 mr-sm-2 mt-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-lock"></i></div>
                                     </div>
-                                    <input id="password" type="password" class="form-control custom-input" placeholder="Password">
+                                    <input id="password" type="password" class="form-control custom-input" placeholder="<%=langText.password%>">
                                 </div>
                                 <div class="input-group mb-2 mr-sm-2 mt-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text"><i class="fas fa-unlock"></i></div>
                                     </div>
-                                    <input id="confirmPassword" type="password" class="form-control custom-input" placeholder="Confirm Password">
+                                    <input id="confirmPassword" type="password" class="form-control custom-input" placeholder="<%=langText.cpassword%>">
                                 </div>
                                 <div class="custom-control custom-checkbox mt-4">
                                     <input id="checkToS" type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">I agree all statements in <a href="terms">Terms of service</a></label>
+                                    <label class="custom-control-label" for="customCheck1"><%=langText.iagree%> <a href="terms"><%=langText.terms%></a></label>
                                 </div>
                                 <div class="buttons-container">
-                                    <button id="submit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-sign-in-alt"></i> Sign up</button> 
-                                    <a href="login" class="btn custom-btn btn-silver btn2" role="button">I already have an account</a>
+                                    <button id="submit" class="custom-btn btn-purple mt-3 btn1" role="button" type="submit"><i class="far fa-sign-in-alt"></i> <%=langText.signup%></button> 
+                                    <a href="login" class="btn custom-btn btn-silver btn2" role="button"><%=langText.haveacc%></a>
                                 </div>
                             </form>
                         </div>
@@ -121,8 +121,41 @@
                         },
                         error: function(jqXHR, textStatus, err) {
                             $("#modal").modal();
-                            $("#modalTitle").html("Error");
-                            $("#modalText").html(JSON.parse(jqXHR.responseText).message);
+                            $("#modalTitle").html("<%=langText.error%>");
+                            switch(jqXHR.status) {
+                                case 401:
+                                    $("#modalText").html("<%=langText.user401%>");
+                                    break;
+                                case 402:
+                                    $("#modalText").html("<%=langText.user402%>");
+                                    break;
+                                case 403:
+                                    $("#modalText").html("<%=langText.user403%>");
+                                    break;
+                                case 404:
+                                    $("#modalText").html("<%=langText.user404%>");
+                                    break;
+                                case 405:
+                                    $("#modalText").html("<%=langText.user405%>");
+                                    break;
+                                case 406:
+                                    $("#modalText").html("<%=langText.user406%>");
+                                    break;
+                                case 407:
+                                    $("#modalText").html("<%=langText.user407%>");
+                                    break;
+                                case 408:
+                                    $("#modalText").html("<%=langText.user408%>");
+                                    break;
+                                case 409:
+                                    $("#modalText").html("<%=langText.user409%>");
+                                    break;
+                                case 410:
+                                    $("#modalText").html("<%=langText.user410%>");
+                                    break;
+                                default:
+                                    $("#modalText").html("<%=langText.error%>");
+                            }
                         }
                     });
                 });

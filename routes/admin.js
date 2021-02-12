@@ -52,12 +52,12 @@ router.post("/exercise/add", adminauth, async (req, res) => {
     var timeRequired = parseFloat(_timeRequired).toFixed(2);
 
     try {
-        if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
-        if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
-        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
+        if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
+        if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
+        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
 
-        if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0" });
-        if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0" });
+        if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
+        if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
 
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
             let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired });
@@ -67,7 +67,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
             logger.log("INFO", "\x1b[32m", "Exercise created", "id", exercise.id, "name", name);
             return res.status(200).json({ message: "Exercise created" });
 
-        } else return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!" });
+        } else return res.status(406).json({ message: "Difficulty must be 1, 2 or 3!" });
 
     } catch (e) {
         logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
@@ -88,14 +88,14 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         if(!exercise) return res.status(400).json({ message: "Exercise not exist" });
 
         if(name !== null && name !== undefined && name !== "") {
-            if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!" });
-            if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!" });
-            if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!" });
+            if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
+            if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
+            if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
             exercise.name = name;
         }
 
         if(difficulty !== null && difficulty !== undefined && !Number.isNaN(difficulty)) {
-            if(difficulty !== 1 && difficulty !== 2 && difficulty !== 3) return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!" });
+            if(difficulty !== 1 && difficulty !== 2 && difficulty !== 3) return res.status(406).json({ message: "Difficulty must be 1, 2 or 3!" });
             exercise.difficulty = difficulty;
         }
 
@@ -108,12 +108,12 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         }
 
         if(kcal !== null && kcal !== undefined && !Number.isNaN(kcal)) {
-            if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0" });
+            if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
             exercise.kcal = kcal;
         }
 
         if(timeRequired !== null && timeRequired !== undefined && !Number.isNaN(timeRequired)) {
-            if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0" });
+            if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
             exercise.timeRequired = timeRequired;
         }
         
