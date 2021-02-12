@@ -17,6 +17,8 @@ const user = require("./routes/user");
 const exercise = require("./routes/exercise");
 const admin = require("./routes/admin");
 
+var i18n = require("i18n-express");
+
 
 // SSL
 
@@ -42,6 +44,11 @@ server.listen(443, () => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(i18n({
+    translationsPath: path.join(__dirname, '/views/lang'),
+    siteLangs: ["en", "sr"],
+    textsVarName: 'langText'
+}));
 
 /*
     routes
