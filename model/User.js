@@ -41,7 +41,7 @@ const UserSchema = mongoose.Schema({
         }
     }],
     score: {
-        type: mongoose.Types.Decimal128,
+        type: Number,
         default: 0
     },
     weekGoal: {

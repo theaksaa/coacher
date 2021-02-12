@@ -108,6 +108,12 @@
                                     </div>
                                     <div class="input-group mb-2 mr-sm-2  mt-3">
                                         <div class="input-group-prepend">
+                                            <div class="input-group-text samewidth"><i class="fas fa-tally m-auto"></i></div>
+                                        </div>
+                                        <input id="repetitions" type="text" class="form-control custom-input" placeholder="<%=langText.repetitions%>" value="<%=exercise.repetitions%>">
+                                    </div>
+                                    <div class="input-group mb-2 mr-sm-2  mt-3">
+                                        <div class="input-group-prepend">
                                             <div class="input-group-text samewidth"><i class="fas fa-image m-auto"></i></div>
                                         </div>
                                         <input id="image" type="text" class="form-control custom-input" placeholder="<%=langText.image%>" value="<%=exercise.image%>">
@@ -195,6 +201,7 @@
                             _difficulty: document.getElementById("difficulty").value,
                             _kcal: document.getElementById("kcal").value,
                             _timeRequired: document.getElementById("timeRequired").value,
+                            _repetitions: document.getElementById("repetitions").value,
                             image: document.getElementById("image").value,
                             script: document.getElementById("script").value
                         }, 

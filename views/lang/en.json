@@ -103,6 +103,7 @@
     "timereq": "Time Required (minutes)",
     "script": "Script",
     "add_exercise_desc": "• Name can have maximum 20 charcters • <br> • Difficulty can be 1, 2 or 3 • <br> • You can use URL or base64 string for image •",
+    "repetitions": "Repetitions",
 
 
 
@@ -155,5 +156,6 @@
     "exercise404": "kcal can't be less than 0",
     "exercise405": "Required time can't be less than 0",
     "exercise406": "Difficulty can be 1, 2 or 3",
-    "exercise407": "Script is required"
+    "exercise407": "Script is required",
+    "exercise408": "Repetitions can't be less than 0 and more than 1000"
 }

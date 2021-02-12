@@ -46,10 +46,11 @@ router.get("/edit", adminauth, async (req, res) => {
 
 router.post("/exercise/add", adminauth, async (req, res) => {
 
-    const { name, _difficulty, image, script, _kcal, _timeRequired } = req.body;
+    const { name, _difficulty, image, script, _kcal, _timeRequired, _repetitions } = req.body;
     var difficulty = parseInt(_difficulty, 10);
     var kcal = parseInt(_kcal, 10);
     var timeRequired = parseFloat(_timeRequired).toFixed(2);
+    var repetitions = parseInt(repetitions, 10);
 
     try {
         if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
@@ -59,6 +60,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
         if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
         if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
         if(script == "") return res.status(407).json({ message: "Script is required" });
+        if(repetitions <= 0 || repetitions >= 1000) return res.status(408).json({ message: "Repetitions can't be less than 0 and more than 1000" });
 
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
             let exercise = new Exercise({ name, difficulty, image, createdAt: new Date().getTime(), script, kcal, timeRequired });
@@ -77,10 +79,12 @@ router.post("/exercise/add", adminauth, async (req, res) => {
 
 router.post("/exercise/edit", adminauth, async (req, res) => {
 
-    const { id, name, _difficulty, image, script, _kcal, _timeRequired } = req.body;
+    const { id, name, _difficulty, image, script, _kcal, _timeRequired, _repetitions } = req.body;
     var difficulty = parseInt(_difficulty, 10);
     var kcal = parseInt(_kcal, 10);
     var timeRequired = parseFloat(_timeRequired).toFixed(2);
+    var repetitions = parseInt(_repetitions, 10);
+
 
     try { 
         if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
@@ -115,6 +119,11 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         if(timeRequired !== null && timeRequired !== undefined && !Number.isNaN(timeRequired)) {
             if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
             exercise.timeRequired = timeRequired;
+        }
+
+        if(repetitions !== null && repetitions !== undefined && !Number.isNaN(repetitions)) {
+            if(repetitions <= 0 || repetitions >= 1000) return res.status(408).json({ message: "Repetitions can't be less than 0 and more than 1000" });
+            exercise.repetitions = repetitions;
         }
         
         await exercise.save();
