@@ -2,3 +2,9 @@ node_modules/
 ssl/
 secret
 logs.log
+server-linux
+server-macos
+server-win.exe
+db-linux
+db-macos
+db-win.exe
