@@ -1,6 +1,7 @@
 {
-  "name": "server",
+  "name": "coacher",
   "version": "1.0.0",
+  "description": "",
   "main": "server.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -17,9 +18,17 @@
   },
   "devDependencies": {},
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theaksaa/coacher.git"
   },
   "author": "Uros Aksentijevic",
   "license": "ISC",
-  "description": ""
+  "bugs": {
+    "url": "https://github.com/theaksaa/coacher/issues"
+  },
+  "homepage": "https://github.com/theaksaa/coacher#readme"
 }
