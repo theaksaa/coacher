@@ -16,9 +16,9 @@ const generateToken = require("./config/secret")();
 const user = require("./routes/user");
 const exercise = require("./routes/exercise");
 const admin = require("./routes/admin");
+const i18n = require("i18n-express");
 
-var i18n = require("i18n-express");
-
+const httpsServer = false;
 
 // SSL
 
@@ -33,13 +33,19 @@ var options = {
     ================================================================
 */
 
+if(httpsServer) {
+    var server = https.createServer(options, app);
 
-var server = https.createServer(options, app);
-
-server.listen(443, () => {
-    logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 443);
-});
-
+    server.listen(443, () => {
+        logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 443);
+    });
+}
+else {
+    app.listen(80, (req, res) => {
+        logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 80);
+    });
+    
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
