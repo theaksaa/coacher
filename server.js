@@ -2,6 +2,7 @@
     VARIABLES AND REQUIREMENTS
     ================================================================
 */
+const argv = require('minimist')(process.argv.slice(2));
 
 const express = require('express');
 const app = express();
@@ -9,7 +10,7 @@ const https = require('https');
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const mongoserver = require("./config/database")();
+const mongoserver = require("./config/database")(argv["dburi"]);
 const logger = require('./logger/logger');
 const fs = require('fs');
 const generateToken = require("./config/secret")();
@@ -18,15 +19,7 @@ const exercise = require("./routes/exercise");
 const admin = require("./routes/admin");
 const i18n = require("i18n-express");
 
-const httpsServer = false;
-
-// SSL
-
-var options = {
-    key: fs.readFileSync('ssl/certificate.key'),
-    cert: fs.readFileSync('ssl/certificate.crt')
-};
-
+const httpsServer = (argv["https"]) ? true : false;
 
 /*
     SERVER
@@ -34,15 +27,21 @@ var options = {
 */
 
 if(httpsServer) {
+    var options = {
+        key: fs.readFileSync(argv["sslkey"] ? argv["sslkey"] : 'ssl/certificate.key'),
+        cert: fs.readFileSync(argv["sslcrt"] ? argv["sslcrt"] : 'ssl/certificate.crt')
+    };
+
     var server = https.createServer(options, app);
 
-    server.listen(443, () => {
-        logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 443);
+    server.listen(443, argv["host"] ? argv["host"] : "localhost", () => {
+        logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 443);
+        logger.log("INFO", "\x1b[32m", "HTTPS ENABLED");
     });
 }
 else {
-    app.listen(80, (req, res) => {
-        logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 80);
+    app.listen(80, argv["host"] ? argv["host"] : "localhost", (req, res) => {
+        logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 80);
     });
     
 }

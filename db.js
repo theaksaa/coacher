@@ -1,5 +1,7 @@
+const argv = require('minimist')(process.argv.slice(2));
+
 const path = require('path');
-const mongoserver = require("./config/database")();
+const mongoserver = require("./config/database")(argv["dburi"]);
 const mongoose = require("mongoose");
 const logger = require('./logger/logger');
 const fs = require('fs');
