@@ -53,13 +53,13 @@ router.post("/exercise/add", adminauth, async (req, res) => {
     var repetitions = parseInt(_repetitions, 10);
 
     try {
-        if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
-        if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
-        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
+        if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!", status: 401 });
+        if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!", status: 402 });
+        if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!", status: 403 });
 
-        if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
-        if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
-        if(script == "") return res.status(407).json({ message: "Script is required" });
+        if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0", status: 404 });
+        if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0", status: 405 });
+        if(script == "") return res.status(400).json({ message: "Script is required", status: 407 });
         if(repetitions <= 0 || repetitions >= 1000) return res.status(408).json({ message: "Repetitions can't be less than 0 and more than 1000" });
 
         if(difficulty == 1 || difficulty == 2 || difficulty == 3) {
@@ -69,7 +69,7 @@ router.post("/exercise/add", adminauth, async (req, res) => {
             logger.log("INFO", "\x1b[32m", "Exercise created", "id", exercise.id, "name", name);
             return res.status(200).json({ redirect: '/admin' });
 
-        } else return res.status(406).json({ message: "Difficulty must be 1, 2 or 3!" });
+        } else return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!", status: 406 });
 
     } catch (e) {
         logger.log("ERROR", "\x1b[31m", "Server error", 'error', e);
@@ -89,17 +89,17 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
     try { 
         if(!mongoose.Types.ObjectId.isValid(id)) return res.status(500).render(path.join(__dirname + '/../views/error/error.ejs'), { errCode: 500, errMessage: "Invalid exercise ID" });
         const exercise = await Exercise.findById(id);
-        if(!exercise) return res.status(400).json({ message: "Exercise not exist" });
+        if(!exercise) return res.status(400).json({ message: "Exercise not exist", status: 400 });
 
         if(name !== null && name !== undefined && name !== "") {
-            if(name.length == 0) return res.status(401).json({ message: "Name must have at least one character!" });
-            if(name.length > 20) return res.status(402).json({ message: "Name can't be longer than 20 characters!" });
-            if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(403).json({ message: "Name isn't valid!" });
+            if(name.length == 0) return res.status(400).json({ message: "Name must have at least one character!", status: 401 });
+            if(name.length > 20) return res.status(400).json({ message: "Name can't be longer than 20 characters!", status: 402 });
+            if(!/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/g.test(name)) return res.status(400).json({ message: "Name isn't valid!", status: 403 });
             exercise.name = name;
         }
 
         if(difficulty !== null && difficulty !== undefined && !Number.isNaN(difficulty)) {
-            if(difficulty !== 1 && difficulty !== 2 && difficulty !== 3) return res.status(406).json({ message: "Difficulty must be 1, 2 or 3!" });
+            if(difficulty !== 1 && difficulty !== 2 && difficulty !== 3) return res.status(400).json({ message: "Difficulty must be 1, 2 or 3!", status: 406 });
             exercise.difficulty = difficulty;
         }
 
@@ -112,17 +112,17 @@ router.post("/exercise/edit", adminauth, async (req, res) => {
         }
 
         if(kcal !== null && kcal !== undefined && !Number.isNaN(kcal)) {
-            if(kcal <= 0) return res.status(404).json({ message: "kcal can't be smaller than 0" });
+            if(kcal <= 0) return res.status(400).json({ message: "kcal can't be smaller than 0", status: 404 });
             exercise.kcal = kcal;
         }
 
         if(timeRequired !== null && timeRequired !== undefined && !Number.isNaN(timeRequired)) {
-            if(timeRequired <= 0) return res.status(405).json({ message: "Time required can't be smaller than 0" });
+            if(timeRequired <= 0) return res.status(400).json({ message: "Time required can't be smaller than 0", status: 405 });
             exercise.timeRequired = timeRequired;
         }
 
         if(repetitions !== null && repetitions !== undefined && !Number.isNaN(repetitions)) {
-            if(repetitions <= 0 || repetitions >= 1000) return res.status(408).json({ message: "Repetitions can't be less than 0 and more than 1000" });
+            if(repetitions <= 0 || repetitions >= 1000) return res.status(400).json({ message: "Repetitions can't be less than 0 and more than 1000", status: 408 });
             exercise.repetitions = repetitions;
         }
         

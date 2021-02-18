@@ -252,7 +252,7 @@
                             if (data.redirect) setTimeout(function() { window.location.href = data.redirect }, 1000);
                         },
                         error: function(jqXHR, textStatus, err) {
-                            switch(jqXHR.status) {
+                            switch(jqXHR.responseJSON.status) {
                                 case 401:
                                     $.toast({
                                         type: "error",
