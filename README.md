@@ -1,5 +1,5 @@
 # Coacher
-![build](https://img.shields.io/badge/build-success-brightgreen.svg?style=flat-square) ![version](https://img.shields.io/badge/version-1.0 BETA-yellow.svg?style=flat-square)
+![build](https://img.shields.io/badge/build-success-brightgreen.svg?style=flat-square) ![version](https://img.shields.io/badge/version-1.0_BETA-yellow.svg?style=flat-square)
 
 **Coacher** is web portal for tracking your exercises, health, fitness progress using machine learning. 
 
