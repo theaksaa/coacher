@@ -7,35 +7,49 @@ It is virtual coach and using video camera we track your exercises which means t
 
 ## Get started
 ### Requirements
-- NodeJS (v14.8.0)
-- OpenSSL
-- MongoDB server (v4.4)
+* [NodeJS](https://nodejs.org/en/ "NodeJS") (v14.8.0)
+* [OpenSSL](https://www.openssl.org/ "OpenSSL")
+* [MongoDB server](https://docs.mongodb.com/manual/administration/install-community/ "MongoDB server") (v4.4)
+* [pkg](https://www.npmjs.com/package/pkg "pkg") (v4.4.9)
 
 ### Installation
-- Clone coacher repository: `git clone https://github.com/theaksaa/coacher.git `
+* Clone coacher repository: `git clone https://github.com/theaksaa/coacher.git `
+* Install node modules: `npm install`
+* Install pkg package: `npm install -g pkg`
+* Create SSL certificate: (*skip this step if you want to use http*)
+	`mkdir ssl && cd ssl`
+ 	`openssl req -new -newkey rsa:2048 -nodes -keyout certificate.key -out certificate.csr`
+	 `openssl req -new -x509 -nodes -sha256 -days 365 -key certificate.key -out certificate.crt`
+* Create executable: `pkg server.js && pkg db.js`
+* To import default database run: (*require opened mongoDB server*)
+ `./db-linux` - for linux
+ `./db-macos` - for macos
+  `db-win.exe` - for windows
 
-- Install node modules: `npm install`
 
-- Create SSL certificate:
-`mkdir ssl && cd ssl`
 
- `openssl req -new -newkey rsa:2048 -nodes -keyout certificate.key -out certificate.csr`
+## Running coacher
+To start coacher web server first open mongodb server and then run executable without parameters.
+ `./server-linux` - for linux
+ `./server-macos` - for macos
+  `server-win.exe` - for windows
+#### CLI parameters
+* `host` - host of web server (default `localhost`)
+* `https` - open server with https (default `http`)
+* `dburi` - mongodb uri (default `mongodb://localhost:27017/coacher`)
+* `sslkey` - path to ssl key file (default `ssl/certificate.key`)
+* `sslcrt` - path to ssl crt file (default `ssl/certificate.crt`)
 
- `openssl req -new -x509 -nodes -sha256 -days 365 -key certificate.key -out certificate.crt`
-
-- Import default database `node db.js` - *require opened mongoDB server*
-
-### Start
-- Run mongoDB server
-- Run coacher web server: `node server.js`
+## Admin panel
+User with admin privilege can add, remove and modify exercises.
 
 ### Admin login credentials
 | Email | Password |
 | ------------ | ------------ |
 |  admin | admin |
 
-## Admin panel
-User with admin privilege can add, remove and modify exercises.
+## Exercise
+
 ##### Exercise must have:
 - Name *- max 20 characters*
 - Difficulty *- 1, 2 or 3*
