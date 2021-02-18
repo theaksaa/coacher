@@ -8,14 +8,14 @@ const Exercise = require("./model/Exercise");
 const exercise = require("./routes/exercise");
 
 logger.log("INFO", "\x1b[32m", "Importing...");
-console.log("\nAdmin info:\nEmail: admin@coacher.com | Password: @dministratoR1!\n");
+console.log("\nAdmin info:\nEmail: admin | Password: admin\n");
 
 
 var data1 = {
     "admin":true,
     "name":"admin",
-    "email":"admin@coacher.com",
-    "password":"$2a$10$/3hUjbF6G6sHIhr471rN2.Wxvb3Fl3e92I.4a8F5GUWHS.aPon/c.",
+    "email":"admin",
+    "password":"$2a$10$0Zreo/4VPWZLayzuDwBo0OlCLy43o/VcTHvEzhMUzlaRUIqg2S5BC",
     "createdAt":"2021-02-12T21:44:42.716Z",
     "lastChangeActivity":"2021-02-12T21:44:42.716Z",
     "lastActivity":"2021-02-12T21:44:42.716Z",
