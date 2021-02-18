@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-const uri = "mongodb://localhost:27017/coacher";
 const logger = require('../logger/logger');
 
-const InitiateMongoServer = async () => {
+module.exports = async (uri = "mongodb://localhost:27017/coacher") => {
     try {
         await mongoose.connect(uri, {
             useNewUrlParser: true,
-            useUnifiedTopology: true 
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 2000
         });
         logger.log("INFO", "\x1b[32m", "MongoDB connected", "uri", "'" + uri + "'");
     } catch (err) {
@@ -14,6 +14,4 @@ const InitiateMongoServer = async () => {
         process.exit(0);
         //throw e;
     }
-  };
-  
-  module.exports = InitiateMongoServer;
+};
