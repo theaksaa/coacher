@@ -180,6 +180,9 @@ body {
         padding: 20px;
     }
 }
+input.custom-input {
+    font-family: Arial, Helvetica, sans-serif;
+}
 /*input[type=text].custom-input {
     border: 0px;
     border-bottom: 1px solid #9E9FB4;
