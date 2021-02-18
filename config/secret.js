@@ -1,7 +1,7 @@
 const fs = require('fs');
 const logger = require('../logger/logger');
 
-async function randomToken(length) {
+function randomToken(length) {
     var result           = '';
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+][\\\';/.,';
     var charactersLength = characters.length;
@@ -11,8 +11,8 @@ async function randomToken(length) {
     return result;
 }
 
-const GenerateToken = async () => {
-    var tokenSecret = await randomToken(32);
+const GenerateToken = () => {
+    var tokenSecret = randomToken(32);
 
     fs.writeFile('secret', tokenSecret, function (err) {
         if (err) return logger.log("ERROR", "\x1b[31m", "error", err);
