@@ -26,6 +26,8 @@ const httpsServer = (argv["https"]) ? true : false;
     ================================================================
 */
 
+logger.log("INFO", "\x1b[32m", "Coacher started", "version", "1.0.0");
+
 if(httpsServer) {
     var options = {
         key: fs.readFileSync(argv["sslkey"] ? argv["sslkey"] : 'ssl/certificate.key'),
