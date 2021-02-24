@@ -13,7 +13,7 @@ const path = require('path');
 const mongoserver = require("./config/database")(argv["dburi"]);
 const logger = require('./logger/logger');
 const fs = require('fs');
-if(argv["gentoken"]) const generateToken = require("./config/secret")();
+if(argv["gentoken"]) require("./config/secret")();
 const user = require("./routes/user");
 const exercise = require("./routes/exercise");
 const admin = require("./routes/admin");
