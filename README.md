@@ -24,7 +24,7 @@ It is virtual coach and using video camera we track your exercises which means t
 
 
 ## Running coacher
-To start coacher web server first open mongodb server and then run executable without parameters.
+To start coacher web server first open mongodb server and then run without parameters:
 	`node server.js`
    
 #### CLI parameters
@@ -34,6 +34,7 @@ To start coacher web server first open mongodb server and then run executable wi
 * `sslkey` - path to ssl key file (default `ssl/certificate.key`)
 * `sslcrt` - path to ssl crt file (default `ssl/certificate.crt`)
 * `gentoken` - generate random jwt (default `secret123`)
+   example: `node server.js --https --gentoken --host 127.0.0.1`
 
 ## Admin panel
 User with admin privilege can add, remove and modify exercises.
