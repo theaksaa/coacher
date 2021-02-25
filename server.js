@@ -38,7 +38,7 @@ if(httpsServer) {
 
     if(argv["host"]) {
         server.listen(443, argv["host"], () => {
-            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 443);
+            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"], "port", 443);
             logger.log("INFO", "\x1b[32m", "HTTPS ENABLED");
         });
     }
@@ -52,7 +52,7 @@ if(httpsServer) {
 else {
     if(argv["host"]) {
             app.listen(80, argv["host"], (req, res) => {
-            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 80);
+            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"], "port", 80);
         });
     }
     else {
