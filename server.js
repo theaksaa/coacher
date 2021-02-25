@@ -36,16 +36,30 @@ if(httpsServer) {
 
     var server = https.createServer(options, app);
 
-    server.listen(443, argv["host"] ? argv["host"] : "localhost", () => {
-        logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 443);
-        logger.log("INFO", "\x1b[32m", "HTTPS ENABLED");
-    });
+    if(argv["host"]) {
+        server.listen(443, argv["host"], () => {
+            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 443);
+            logger.log("INFO", "\x1b[32m", "HTTPS ENABLED");
+        });
+    }
+    else {
+        server.listen(443, () => {
+            logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 443);
+            logger.log("INFO", "\x1b[32m", "HTTPS ENABLED");
+        });
+    }
 }
 else {
-    app.listen(80, argv["host"] ? argv["host"] : "localhost", (req, res) => {
-        logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 80);
-    });
-    
+    if(argv["host"]) {
+            app.listen(80, argv["host"], (req, res) => {
+            logger.log("INFO", "\x1b[32m", "Server started", "host", argv["host"] ? argv["host"] : "localhost", "port", 80);
+        });
+    }
+    else {
+        app.listen(80, (req, res) => {
+            logger.log("INFO", "\x1b[32m", "Server started", "host", "localhost", "port", 80);
+        });
+    }
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
