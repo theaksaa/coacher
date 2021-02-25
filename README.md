@@ -60,7 +60,7 @@ User with admin privilege can add, remove and modify exercises.
 - Script *- javascript code*
 
 ### Exercise scripting
-Every exercise need to have custom script for tracking.
+Every exercise needs to have a custom script for tracking.
 
 ```javascript
 let angle = calculateAngle(pose.rightWrist, pose.rightElbow, pose.rightShoulder).toFixed(2);
