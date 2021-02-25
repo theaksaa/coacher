@@ -10,21 +10,18 @@ It is virtual coach and using video camera we track your exercises which means t
 * [NodeJS](https://nodejs.org/en/ "NodeJS") (v14.8.0)
 * [OpenSSL](https://www.openssl.org/ "OpenSSL")
 * [MongoDB server](https://docs.mongodb.com/manual/administration/install-community/ "MongoDB server") (v4.4)
-* [pkg](https://www.npmjs.com/package/pkg "pkg") (v4.4.9)
 
 ### Installation
 * Clone coacher repository: `git clone https://github.com/theaksaa/coacher.git `
 * Install node modules: `npm install`
-* Install pkg package: `npm install -g pkg`
 * Create SSL certificate: (*skip this step if you want to use http*)
 	`mkdir ssl && cd ssl`
  	`openssl req -new -newkey rsa:2048 -nodes -keyout certificate.key -out certificate.csr`
 	 `openssl req -new -x509 -nodes -sha256 -days 365 -key certificate.key -out certificate.crt`
-* Create executable: `pkg server.js && pkg db.js`
 * To import default database run: (*require opened mongoDB server*)
  `./db-linux` - for linux
  `./db-macos` - for macos
-  `db-win.exe` - for windows
+ `db-win.exe` - for windows
 
 
 
@@ -39,6 +36,7 @@ To start coacher web server first open mongodb server and then run executable wi
 * `dburi` - mongodb uri (default `mongodb://localhost:27017/coacher`)
 * `sslkey` - path to ssl key file (default `ssl/certificate.key`)
 * `sslcrt` - path to ssl crt file (default `ssl/certificate.crt`)
+* `gentoken` - generate random jwt (default `secret123`)
 
 ## Admin panel
 User with admin privilege can add, remove and modify exercises.
