@@ -19,17 +19,14 @@ It is virtual coach and using video camera we track your exercises which means t
  	`openssl req -new -newkey rsa:2048 -nodes -keyout certificate.key -out certificate.csr`
 	 `openssl req -new -x509 -nodes -sha256 -days 365 -key certificate.key -out certificate.crt`
 * To import default database run: (*require opened mongoDB server*)
- `./db-linux` - for linux
- `./db-macos` - for macos
- `db-win.exe` - for windows
+	`node db.js`
 
 
 
 ## Running coacher
 To start coacher web server first open mongodb server and then run executable without parameters.
- `./server-linux` - for linux
- `./server-macos` - for macos
-  `server-win.exe` - for windows
+	`node server.js`
+   
 #### CLI parameters
 * `host` - host of web server (default `localhost`)
 * `https` - open server with https (default `http`)
